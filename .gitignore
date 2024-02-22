@@ -1,3 +1,7 @@
+# Folders
+build/
+.vs/
+
 # Prerequisites
 *.d
 
@@ -28,5 +32,6 @@
 
 # Executables
 *.exe
+*.dll
 *.out
 *.app

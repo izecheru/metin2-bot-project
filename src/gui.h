@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include "GamePointers.h"
 
 // directx
 #include "../ext/detours/detours.h"
@@ -21,6 +22,9 @@ namespace Gui {
 
 		inline Reset_t pReset;
 		HRESULT __stdcall Reset(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+
+		void RenderVariable(void* value, const char* variableName);
+
 
 		inline bool showMenu = false;
 		inline bool InitImGui = false;

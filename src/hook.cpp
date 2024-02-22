@@ -1,3 +1,5 @@
+#include "GamePointers.h"
+#include "PatternScanner.h"
 #include "hook.h"
 
 bool Hook::Setup() {
@@ -8,7 +10,12 @@ bool Hook::Setup() {
 				Gui::pReset = (Reset_t) deviceTable[16];
 				pGetDeviceData = (GetDeviceData_t) inputDeviceTable[10];
 				pGetDeviceState = (GetDeviceState_t) inputDeviceTable[9];
+				// get the game pointers
 
+				UseSkill = (UseSkill_t) PatternScanner::FindSignature(elaris::SendUseSkill);
+				Pointers::UseSkillAddress = (uintptr_t) UseSkill;
+				Pointers::ptrCPythonNetworkStream = PatternScanner::FindClass(elaris::CPythonNetworkStream);
+				// hook functions
 				DetourTransactionBegin();
 				DetourUpdateThread(GetCurrentThread());
 				DetourAttach(&(PVOID&) Gui::pEndScene, Gui::EndScene);
@@ -86,22 +93,24 @@ bool Hook::GetD3D9Device() {
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
 		WPARAM wParam, LPARAM lParam);
 LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		ImGuiIO io = ImGui::GetIO();
 		if (Gui::showMenu) {
 				ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-				switch (uMsg) {
-						case WM_KEYDOWN:
-								if (wParam == VK_INSERT) {
+
+				if (uMsg == WM_KEYDOWN) {
+						switch (wParam) {
+								case VK_INSERT:
 										Gui::showMenu = !Gui::showMenu;
-								}
+										break;
+						}
 				}
 				return TRUE;
 		}
-		switch (uMsg) {
-				case WM_KEYDOWN:
-						if (wParam == VK_INSERT) {
+		if (uMsg == WM_KEYDOWN) {
+				switch (wParam) {
+						case VK_INSERT:
 								Gui::showMenu = !Gui::showMenu;
-						}
+								break;
+				}
 		}
 		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
@@ -119,7 +128,6 @@ HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
 
 HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags) {
 		HRESULT result = pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
-
 		if (result == DI_OK) {
 				if (Gui::showMenu) {
 						*pdwInOut = 0; //set array size 0

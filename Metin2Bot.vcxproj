@@ -216,8 +216,11 @@
     <ClInclude Include="ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="ext\imgui\imstb_textedit.h" />
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\GamePointers.h" />
+    <ClInclude Include="src\GameSignatures.h" />
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hook.h" />
+    <ClInclude Include="src\PatternScanner.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ext\detours\lib\detours.lib" />
@@ -269,6 +272,7 @@
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hook.cpp" />
+    <ClCompile Include="src\PatternScanner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

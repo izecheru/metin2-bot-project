@@ -7,7 +7,6 @@ HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 		if (!Gui::InitImGui) {
 				Gui::InitImGui = true;
 				ImGui::CreateContext();
-
 				ImGui_ImplWin32_Init(FindWindowA(NULL, "Elaris v1.0"));
 				ImGui_ImplDX9_Init(pDevice);
 		}
@@ -15,8 +14,10 @@ HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
+		// here goes the menu
 		if (showMenu) {
-				ImGui::ShowDemoWindow();
+				RenderVariable((void*) Pointers::ptrCPythonNetworkStream, "CPythonNetworkStream class ");
+				RenderVariable((void*) Pointers::UseSkillAddress, "UseSkill function ");
 		}
 
 		ImGui::EndFrame();
@@ -28,4 +29,7 @@ HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 
 HRESULT __stdcall Gui::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params) {
 		return pReset(pDevice, params);
+}
+void Gui::RenderVariable(void* value, const char* variableName) {
+		ImGui::Text("%s - %p", variableName, value);
 }

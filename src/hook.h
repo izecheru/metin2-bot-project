@@ -10,6 +10,10 @@
 using WndProc_t = LRESULT(CALLBACK*)(HWND, UINT, WPARAM, LPARAM);
 using GetDeviceState_t = HRESULT(__stdcall*)(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
 using GetDeviceData_t = HRESULT(__stdcall*)(IDirectInputDevice8*, DWORD, LPDIDEVICEOBJECTDATA, LPDWORD, DWORD);
+
+// game function type
+using UseSkill_t = bool(__thiscall*)(void*, int index, int target);
+
 namespace Hook {
 		inline HWND window;
 		inline void** deviceTable;
@@ -20,6 +24,9 @@ namespace Hook {
 		HRESULT __stdcall GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
 		inline GetDeviceData_t pGetDeviceData;
 		HRESULT __stdcall GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags);
+
+		inline UseSkill_t UseSkill = nullptr;
+
 
 		bool Setup();
 		bool Shutdown();

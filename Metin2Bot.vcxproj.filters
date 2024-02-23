@@ -312,6 +312,7 @@
     <Library Include="ext\directx\lib\x86\xapobased.lib" />
     <Library Include="ext\directx\lib\x86\XAPOFX.lib" />
     <Library Include="ext\directx\lib\x86\XInput.lib" />
+    <Library Include="ext\detours\lib\syelog.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ext\directx\Include\D3DX_DXGIFormatConvert.inl">
@@ -335,6 +336,7 @@
     <None Include="ext\directx\Include\xnamathvector.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="ext\detours\lib\detours.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ext\imgui\imgui.cpp">

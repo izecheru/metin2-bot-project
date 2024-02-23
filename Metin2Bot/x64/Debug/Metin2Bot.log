@@ -1,0 +1,216 @@
+﻿  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx9.cpp
+  imgui_impl_win32.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  dllmain.cpp
+D:\GitHub\metin2-bot-project\src\GamePointers.h(5,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(6,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(7,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(8,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(10,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(20,21): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(23,18): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(29,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(30,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(31,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(32,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(33,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(18,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(19,17): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(20,17): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(21,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(22,18): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(23,27): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(25,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(28,21): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/dllmain.cpp')
+  
+  D:\Windows Kits\10\Include\10.0.19041.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  gui.cpp
+D:\GitHub\metin2-bot-project\src\GamePointers.h(5,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(6,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(7,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(8,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(10,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(20,21): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(23,18): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(29,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(30,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(31,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(32,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(33,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/gui.cpp')
+  
+  hook.cpp
+D:\GitHub\metin2-bot-project\src\GamePointers.h(5,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(6,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(7,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(8,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GamePointers.h(10,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(25,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(31,25): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(38,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(45,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(53,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\PatternScanner.h(8,16): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\PatternScanner.h(9,16): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(20,21): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(23,18): error C7525: inline variables require at least '/std:c++17'
+  D:\Windows Kits\10\Include\10.0.19041.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(29,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(30,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(31,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(32,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\gui.h(33,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(18,15): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(19,17): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(20,17): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(21,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(22,18): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(23,27): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(25,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.h(28,21): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/hook.cpp')
+  
+D:\GitHub\metin2-bot-project\src\hook.cpp(8,59): error C2065: 'GWL_WNDPROC': undeclared identifier
+  PatternScanner.cpp
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(25,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(31,25): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(38,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(45,26): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\GameSignatures.h(53,20): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\PatternScanner.h(8,16): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\PatternScanner.h(9,16): error C7525: inline variables require at least '/std:c++17'
+  (compiling source file 'src/PatternScanner.cpp')
+  
+D:\GitHub\metin2-bot-project\src\PatternScanner.cpp(16,12): warning C4311: 'type cast': pointer truncation from 'HMODULE' to 'DWORD'
+D:\GitHub\metin2-bot-project\src\PatternScanner.cpp(16,12): warning C4302: 'type cast': truncation from 'HMODULE' to 'DWORD'
+D:\GitHub\metin2-bot-project\src\PatternScanner.cpp(21,53): warning C4312: 'type cast': conversion from 'unsigned long' to 'char *' of greater size
+  Generating Code...

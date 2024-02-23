@@ -1,6 +1,12 @@
 #include "gui.h"
+#include "dllFunctions.h"
+#include "data.h"
 
 HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
+		if (Gui::toDetach) {
+				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
+		}
+
 		if (pDevice == NULL)
 				return pEndScene(pDevice);
 

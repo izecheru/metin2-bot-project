@@ -25,7 +25,6 @@ namespace Gui {
 
 		void RenderVariable(void* value, const char* variableName);
 
-
 		inline bool showMenu = false;
 		inline bool InitImGui = false;
 		inline bool toDetach = false;

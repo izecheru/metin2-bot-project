@@ -1,11 +1,13 @@
 #include "GamePointers.h"
 #include "PatternScanner.h"
 #include "hook.h"
+#include "data.h"
 
 bool Hook::Setup() {
+		// all the magic happens here
 		if (GetD3D9Device() && GetD3D9InputDevice()) {
-				Hook::window = FindWindowA(NULL, "Elaris v1.0");
-				oWndProc = (WndProc_t) SetWindowLongPtr(Hook::window, GWL_WNDPROC, (LONG_PTR) Hook::WndProc);
+				Data::window = FindWindowA(NULL, "Elaris v1.0");
+				oWndProc = (WndProc_t) SetWindowLongPtr(Data::window, GWL_WNDPROC, (LONG_PTR) Hook::WndProc);
 				Gui::pEndScene = (EndScene_t) deviceTable[42];
 				Gui::pReset = (Reset_t) deviceTable[16];
 				pGetDeviceData = (GetDeviceData_t) inputDeviceTable[10];
@@ -41,13 +43,13 @@ bool Hook::Shutdown() {
 		DetourDetach(&(PVOID&) pGetDeviceData, GetDeviceData);
 		DetourDetach(&(PVOID&) pGetDeviceState, GetDeviceState);
 		DetourTransactionCommit();
-		SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR) oWndProc);
+		SetWindowLongPtr(Data::window, GWLP_WNDPROC, (LONG_PTR) oWndProc);
 		return true;
 }
 
 bool Hook::GetD3D9InputDevice() {
 		IDirectInput8* pDirectInput = nullptr;
-		if (DirectInput8Create(Hook::g_hModule, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*) &pDirectInput, NULL) != DI_OK) {
+		if (DirectInput8Create(Data::g_hModule, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*) &pDirectInput, NULL) != DI_OK) {
 				return false;
 		}
 		LPDIRECTINPUTDEVICE8 lpdiMouse;
@@ -67,7 +69,7 @@ bool Hook::GetD3D9Device() {
 				return false;
 		}
 
-		HWND tmpWnd = CreateWindowA("BUTTON", "Temp Window", WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, 300, 300, NULL, NULL, Hook::g_hModule, NULL);
+		HWND tmpWnd = CreateWindowA("BUTTON", "Temp Window", WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, 300, 300, NULL, NULL, Data::g_hModule, NULL);
 		if (tmpWnd == NULL) {
 				return false;
 		}
@@ -101,6 +103,9 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 								case VK_INSERT:
 										Gui::showMenu = !Gui::showMenu;
 										break;
+								case VK_END:
+										Gui::toDetach = !Gui::toDetach;
+										break;
 						}
 				}
 				return TRUE;
@@ -118,7 +123,7 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData) {
 		HRESULT result = pGetDeviceState(pThis, cbData, lpvData);
 		if (result == DI_OK) {
-				if (Gui::showMenu) { // I know that in our case the struct is LPDIMOUSESTATE2
+				if (Gui::showMenu) { 
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[0] = 0;
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[1] = 0;
 				}

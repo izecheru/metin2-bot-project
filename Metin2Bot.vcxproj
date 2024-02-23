@@ -216,6 +216,8 @@
     <ClInclude Include="ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="ext\imgui\imstb_textedit.h" />
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\data.h" />
+    <ClInclude Include="src\dllFunctions.h" />
     <ClInclude Include="src\GamePointers.h" />
     <ClInclude Include="src\GameSignatures.h" />
     <ClInclude Include="src\gui.h" />
@@ -271,6 +273,7 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\dllFunctions.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hook.cpp" />

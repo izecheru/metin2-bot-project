@@ -2,7 +2,6 @@
 #include <Windows.h>
 
 // ui drawing
-#include "gui.h"
 #include <dinput.h>
 #pragma comment(lib, "Dinput8.lib")
 #pragma comment(lib, "Dxguid.lib")

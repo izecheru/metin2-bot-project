@@ -223,6 +223,7 @@
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hook.h" />
     <ClInclude Include="src\scanner.h" />
+    <ClInclude Include="src\singleton.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ext\detours\lib\detours.lib" />

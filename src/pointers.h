@@ -7,5 +7,5 @@ namespace Pointers {
 		inline uintptr_t ptrCPythonPlayer = 0;
 		inline uintptr_t ptrCInstanceBase = 0;
 
-		inline uintptr_t UseSkillAddress = 0;
+		inline uintptr_t printAddressForTest = 0;
 }

@@ -4,7 +4,7 @@
 
 HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 		// if we must unload the dll then we create a thread and exit
-		if (Gui::toDetach) {
+		if (toDetach) {
 				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
 		}
 
@@ -27,7 +27,7 @@ HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 		// here goes the menu
 		if (showMenu) {
 				RenderVariable((void*) Pointers::ptrCPythonNetworkStream, "CPythonNetworkStream class ");
-				RenderVariable((void*) Pointers::UseSkillAddress, "UseSkill function ");
+				RenderVariable((void*) Pointers::printAddressForTest, "UseSkill function ");
 		}
 
 		ImGui::EndFrame();
@@ -46,6 +46,40 @@ HRESULT __stdcall Gui::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* p
 		ImGui_ImplDX9_CreateDeviceObjects();
 		return pReset(pDevice, params);
 }
+
 void Gui::RenderVariable(void* value, const char* variableName) {
 		ImGui::Text("%s - %p", variableName, value);
+}
+
+bool Gui::IsShowMenu() {
+		return showMenu == true;
+}
+
+bool Gui::IsToDetach() {
+		return toDetach == true;
+}
+
+bool Gui::IsImGuiInit() {
+		return InitImGui == true;
+}
+
+bool Gui::IsBlockedMouse() {
+		return blockMouse == true;
+}
+
+bool Gui::IsBlockedKeyboard() {
+		return blockKeyboard == true;
+}
+
+void Gui::FlipMenu() {
+		showMenu = !showMenu;
+}
+void Gui::FlipDetach() {
+		toDetach = !toDetach;
+}
+void Gui::FlipBlockMouse() {
+		blockMouse = !blockMouse;
+}
+void Gui::FlipBlockKeyboard() {
+		blockKeyboard = !blockKeyboard;
 }

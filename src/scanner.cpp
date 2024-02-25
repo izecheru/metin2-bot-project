@@ -1,6 +1,6 @@
-#include "PatternScanner.h"
+#include "scanner.h"
 
-MODULEINFO PatternScanner::GetModuleInfo(char* szModule) {
+MODULEINFO Scanner::GetModuleInfo(char* szModule) {
 		MODULEINFO modinfo = { 0 };
 		HMODULE hModule = GetModuleHandleA(szModule);
 		if (hModule == 0)
@@ -9,8 +9,8 @@ MODULEINFO PatternScanner::GetModuleInfo(char* szModule) {
 		return modinfo;
 }
 
-uintptr_t PatternScanner::FindPattern(const char* chPattern, const char* chMask) {
-		MODULEINFO mInfo = GetModuleInfo(PatternScanner::chModule);
+uintptr_t Scanner::FindPattern(const char* chPattern, const char* chMask) {
+		MODULEINFO mInfo = GetModuleInfo(Scanner::chModule);
 		DWORD size = (DWORD) mInfo.SizeOfImage;
 		DWORD patternLength = (DWORD) strlen(chMask);
 		dwBase = (DWORD) GetModuleHandleA(0);
@@ -27,12 +27,12 @@ uintptr_t PatternScanner::FindPattern(const char* chPattern, const char* chMask)
 		return NULL;
 }
 
-uintptr_t PatternScanner::FindClass(OffsetSig signature) {
+uintptr_t Scanner::FindClass(OffsetSig signature) {
 		uintptr_t addressFound = FindPattern(signature.pattern, signature.mask);
 		uintptr_t result = *(uintptr_t*) (addressFound + signature.offset);
 		return result;
 }
 
-uintptr_t PatternScanner::FindSignature(Sig sig) {
+uintptr_t Scanner::FindSignature(Sig sig) {
 		return FindPattern(sig.pattern, sig.mask);
 }

@@ -17,17 +17,26 @@ using EndScene_t = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
 using Reset_t = HRESULT(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
 
 namespace Gui {
-		inline EndScene_t pEndScene = nullptr;
-		HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
-
-		inline Reset_t pReset;
-		HRESULT __stdcall Reset(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
-
-		void RenderVariable(void* value, const char* variableName);
-
 		inline bool showMenu = false;
 		inline bool InitImGui = false;
 		inline bool toDetach = false;
 		inline bool blockMouse = false;
 		inline bool blockKeyboard = false;
-}
+
+		void FlipMenu();
+		void FlipDetach();
+		void FlipBlockMouse();
+		void FlipBlockKeyboard();
+
+		bool IsShowMenu();
+		bool IsToDetach();
+		bool IsImGuiInit();
+		bool IsBlockedMouse();
+		bool IsBlockedKeyboard();
+
+		inline EndScene_t pEndScene = nullptr;
+		inline Reset_t pReset = nullptr;
+		void RenderVariable(void* value, const char* variableName);
+		HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
+		HRESULT __stdcall Reset(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+};

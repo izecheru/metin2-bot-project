@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-#include "GamePointers.h"
+#include "pointers.h"
 
 // directx
 #include "../ext/detours/detours.h"

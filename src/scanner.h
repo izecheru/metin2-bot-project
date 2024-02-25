@@ -10,6 +10,6 @@ namespace PatternScanner {
 		MODULEINFO GetModuleInfo(char* szModule);
 
 		uintptr_t FindPattern(const char* chPattern, const char* chMask);
-		uintptr_t FindClass(ClassSignature signature);
-		uintptr_t FindSignature(Signature sig);
+		uintptr_t FindClass(OffsetSig signature);
+		uintptr_t FindSignature(Sig sig);
 };

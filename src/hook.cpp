@@ -1,5 +1,5 @@
-#include "GamePointers.h"
-#include "PatternScanner.h"
+#include "pointers.h"
+#include "scanner.h"
 #include "hook.h"
 #include "data.h"
 
@@ -13,7 +13,6 @@ bool Hook::Setup() {
 				pGetDeviceData = (GetDeviceData_t) inputDeviceTable[10];
 				pGetDeviceState = (GetDeviceState_t) inputDeviceTable[9];
 				// get the game pointers
-
 				UseSkill = (UseSkill_t) PatternScanner::FindSignature(elaris::SendUseSkill);
 				Pointers::UseSkillAddress = (uintptr_t) UseSkill;
 				Pointers::ptrCPythonNetworkStream = PatternScanner::FindClass(elaris::CPythonNetworkStream);
@@ -123,7 +122,7 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData) {
 		HRESULT result = pGetDeviceState(pThis, cbData, lpvData);
 		if (result == DI_OK) {
-				if (Gui::showMenu) { 
+				if (Gui::showMenu) {
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[0] = 0;
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[1] = 0;
 				}

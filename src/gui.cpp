@@ -3,16 +3,20 @@
 #include "data.h"
 
 HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
+		// if we must unload the dll then we create a thread and exit
 		if (Gui::toDetach) {
 				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
 		}
 
+		// if the device == null then we just return to the original function so we
+		// don't initialise ImGui with a null device
 		if (pDevice == NULL)
 				return pEndScene(pDevice);
 
 		if (!Gui::InitImGui) {
 				Gui::InitImGui = true;
 				ImGui::CreateContext();
+				ImGuiIO& io = ImGui::GetIO();
 				ImGui_ImplWin32_Init(FindWindowA(NULL, "Elaris v1.0"));
 				ImGui_ImplDX9_Init(pDevice);
 		}
@@ -34,6 +38,12 @@ HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
 }
 
 HRESULT __stdcall Gui::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params) {
+		ImGui_ImplDX9_InvalidateDeviceObjects();
+		const auto result = pDevice->Reset(params);
+		if (result == D3DERR_INVALIDCALL) {
+				IM_ASSERT(0);
+		}
+		ImGui_ImplDX9_CreateDeviceObjects();
 		return pReset(pDevice, params);
 }
 void Gui::RenderVariable(void* value, const char* variableName) {

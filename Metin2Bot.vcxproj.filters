@@ -273,13 +273,13 @@
     <ClInclude Include="src\gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\PatternScanner.h">
+    <ClInclude Include="src\scanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameSignatures.h">
+    <ClInclude Include="src\signature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GamePointers.h">
+    <ClInclude Include="src\pointers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dllFunctions.h">
@@ -375,7 +375,7 @@
     <ClCompile Include="src\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PatternScanner.cpp">
+    <ClCompile Include="src\scanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dllFunctions.cpp">

@@ -27,12 +27,12 @@ uintptr_t PatternScanner::FindPattern(const char* chPattern, const char* chMask)
 		return NULL;
 }
 
-uintptr_t PatternScanner::FindClass(ClassSignature signature) {
+uintptr_t PatternScanner::FindClass(OffsetSig signature) {
 		uintptr_t addressFound = FindPattern(signature.pattern, signature.mask);
 		uintptr_t result = *(uintptr_t*) (addressFound + signature.offset);
 		return result;
 }
 
-uintptr_t PatternScanner::FindSignature(Signature sig) {
+uintptr_t PatternScanner::FindSignature(Sig sig) {
 		return FindPattern(sig.pattern, sig.mask);
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "pointers.h"
-
+#include "singleton.h"
 // directx
 #include "../ext/detours/detours.h"
 #include "../ext/directx/Include/d3d9.h"
@@ -13,30 +13,29 @@
 #include "../ext/imgui/imgui_impl_dx9.h"
 #include "../ext/imgui/imgui_impl_win32.h"
 
-using EndScene_t = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
-using Reset_t = HRESULT(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
 
-namespace Gui {
-		inline bool showMenu = false;
-		inline bool InitImGui = false;
-		inline bool toDetach = false;
-		inline bool blockMouse = false;
-		inline bool blockKeyboard = false;
+class Gui : public Singleton<Gui> {
+public:
+		bool showMenu = false;
+		bool InitImGui = false;
+		bool toDetach = false;
+		bool blockMouse = false;
+		bool blockKeyboard = false;
+		bool canResize = true;
 
 		void FlipMenu();
 		void FlipDetach();
 		void FlipBlockMouse();
 		void FlipBlockKeyboard();
+		void FlipCanResize();
 
 		bool IsShowMenu();
-		bool IsToDetach();
+		bool IsDetach();
 		bool IsImGuiInit();
-		bool IsBlockedMouse();
-		bool IsBlockedKeyboard();
+		bool IsMouseBlocked();
+		bool IsKeyboardBlocked();
+		bool CanResize();
 
-		inline EndScene_t pEndScene = nullptr;
-		inline Reset_t pReset = nullptr;
 		void RenderVariable(void* value, const char* variableName);
-		HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
-		HRESULT __stdcall Reset(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+		void RenderMenu();
 };

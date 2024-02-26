@@ -14,22 +14,24 @@ bool Hook::Setup() {
 				oWndProc = (WndProc_t) SetWindowLongPtr(Data::window, GWL_WNDPROC, (LONG_PTR) Hook::WndProc);
 
 				// direct x and direct input vTable initialization
-				Gui::pEndScene = (EndScene_t) deviceTable[42];
-				Gui::pReset = (Reset_t) deviceTable[16];
+				pEndScene = (EndScene_t) deviceTable[42];
+				pReset = (Reset_t) deviceTable[16];
 				pGetDeviceData = (GetDeviceData_t) inputDeviceTable[10];
 				pGetDeviceState = (GetDeviceState_t) inputDeviceTable[9];
 				// get the game pointers
 
 				UseSkill = scanner.FindFunction<UseSkill_t>(elaris::SendUseSkill);
+				DropItem = scanner.FindFunction<SendItemDropPacket_t>(elaris::SendItemDropPacket);
 
-				Pointers::printAddressForTest = (uintptr_t) scanner.FindPattern(elaris::CInstanceBase.pattern, elaris::CInstanceBase.mask);
-				Pointers::ptrCPythonNetworkStream = scanner.FindClass(elaris::CPythonNetworkStream);
+				ptr::ptrCPythonCharacterManager = scanner.FindClass(elaris::CPyhtonCharacterManager);
+				ptr::ptrCPythonNetworkStream = scanner.FindClass(elaris::CPythonNetworkStream);
+
 				// hook functions
 				DetourTransactionBegin();
 				DetourUpdateThread(GetCurrentThread());
-				DetourAttach(&(PVOID&) Gui::pEndScene, Gui::EndScene);
-				DetourAttach(&(PVOID&) Gui::pReset, Gui::Reset);
-				DetourAttach(&(PVOID&) pGetDeviceData, Hook::GetDeviceData);
+				DetourAttach(&(PVOID&) pEndScene, EndScene);
+				DetourAttach(&(PVOID&) pReset, Reset);
+				DetourAttach(&(PVOID&) pGetDeviceData, GetDeviceData);
 				DetourAttach(&(PVOID&) pGetDeviceState, GetDeviceState);
 				DetourTransactionCommit();
 				return true;
@@ -38,15 +40,15 @@ bool Hook::Setup() {
 }
 
 bool Hook::Shutdown() {
-		if (Gui::IsImGuiInit()) {
+		if (gui.IsImGuiInit()) {
 				ImGui_ImplDX9_Shutdown();
 				ImGui_ImplWin32_Shutdown();
 				ImGui::DestroyContext();
 		}
 		DetourTransactionBegin();
 		DetourUpdateThread(GetCurrentThread());
-		DetourDetach(&(PVOID&) Gui::pEndScene, Gui::EndScene);
-		DetourDetach(&(PVOID&) Gui::pReset, Gui::Reset);
+		DetourDetach(&(PVOID&) pEndScene, EndScene);
+		DetourDetach(&(PVOID&) pReset, Reset);
 		DetourDetach(&(PVOID&) pGetDeviceData, GetDeviceData);
 		DetourDetach(&(PVOID&) pGetDeviceState, GetDeviceState);
 		DetourTransactionCommit();
@@ -102,16 +104,16 @@ bool Hook::GetD3D9Device() {
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
 		WPARAM wParam, LPARAM lParam);
 LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		if (Gui::IsShowMenu()) {
+		if (gui.IsShowMenu()) {
 				ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
 				if (uMsg == WM_KEYDOWN) {
 						switch (wParam) {
 								case VK_INSERT:
-										Gui::FlipMenu();
+										gui.FlipMenu();
 										break;
 								case VK_END:
-										Gui::FlipDetach();
+										gui.FlipDetach();
 										break;
 						}
 				}
@@ -120,10 +122,10 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		if (uMsg == WM_KEYDOWN) {
 				switch (wParam) {
 						case VK_INSERT:
-								Gui::FlipMenu();
+								gui.FlipMenu();
 								break;
 						case VK_END:
-								Gui::FlipDetach();
+								gui.FlipDetach();
 								break;
 				}
 		}
@@ -133,7 +135,7 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData) {
 		HRESULT result = pGetDeviceState(pThis, cbData, lpvData);
 		if (result == DI_OK) {
-				if (Gui::IsShowMenu()) {
+				if (gui.IsShowMenu()) {
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[0] = 0;
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[1] = 0;
 				}
@@ -144,9 +146,53 @@ HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
 HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags) {
 		HRESULT result = pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
 		if (result == DI_OK) {
-				if (Gui::IsShowMenu()) {
+				if (gui.IsShowMenu()) {
 						*pdwInOut = 0; //set array size 0
 				}
 		}
 		return result;
+}
+
+HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice) {
+		// if we must unload the dll then we create a thread and exit
+		if (gui.toDetach) {
+				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
+		}
+
+		// if the device == null then we just return to the original function so we
+		// don't initialise ImGui with a null device
+		if (pDevice == NULL)
+				return pEndScene(pDevice);
+
+		if (!gui.InitImGui) {
+				gui.InitImGui = true;
+				ImGui::CreateContext();
+				ImGuiIO& io = ImGui::GetIO();
+				ImGui_ImplWin32_Init(FindWindowA(NULL, "Elaris v1.0"));
+				ImGui_ImplDX9_Init(pDevice);
+		}
+
+		ImGui_ImplDX9_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+		// here goes the menu
+		if (gui.showMenu) {
+				gui.RenderMenu();
+		}
+
+		ImGui::EndFrame();
+		ImGui::Render();
+
+		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+		return pEndScene(pDevice);
+}
+
+HRESULT __stdcall Hook::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params) {
+		ImGui_ImplDX9_InvalidateDeviceObjects();
+		const auto result = pDevice->Reset(params);
+		if (result == D3DERR_INVALIDCALL) {
+				IM_ASSERT(0);
+		}
+		ImGui_ImplDX9_CreateDeviceObjects();
+		return pReset(pDevice, params);
 }

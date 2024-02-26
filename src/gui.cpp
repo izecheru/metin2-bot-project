@@ -1,50 +1,30 @@
 #include "gui.h"
-#include "dllFunctions.h"
-#include "data.h"
 
-HRESULT __stdcall Gui::EndScene(IDirect3DDevice9* pDevice) {
-		// if we must unload the dll then we create a thread and exit
-		if (toDetach) {
-				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
+void Gui::RenderMenu() {
+		if (ImGui::GetIO().WantCaptureMouse == true) {
+				ImGui::GetIO().MouseDrawCursor = true;
+		} else {
+				ImGui::GetIO().MouseDrawCursor = false;
 		}
 
-		// if the device == null then we just return to the original function so we
-		// don't initialise ImGui with a null device
-		if (pDevice == NULL)
-				return pEndScene(pDevice);
-
-		if (!Gui::InitImGui) {
-				Gui::InitImGui = true;
-				ImGui::CreateContext();
-				ImGuiIO& io = ImGui::GetIO();
-				ImGui_ImplWin32_Init(FindWindowA(NULL, "Elaris v1.0"));
-				ImGui_ImplDX9_Init(pDevice);
+		// if we want the window to be resized to 600 by 400 as soon as we resize it manually
+		// same behaviour for the opacity
+		if (!CanResize()) {
+				ImGui::SetNextWindowSize(ImVec2(600, 400));
+				ImGui::SetNextWindowBgAlpha(0.8);
 		}
-
-		ImGui_ImplDX9_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-		// here goes the menu
-		if (showMenu) {
-				RenderVariable((void*) Pointers::ptrCPythonNetworkStream, "CPythonNetworkStream class ");
-				RenderVariable((void*) Pointers::printAddressForTest, "UseSkill function ");
+		// here are the menu tabs
+		ImGui::Begin("cheeky little shit");
+		if (ImGui::BeginTabBar("tabs")) {
+				// main tab
+				if (ImGui::BeginTabItem("main")) {
+						RenderVariable((void*) ptr::ptrCPythonCharacterManager, "Character manager: ");
+						RenderVariable((void*) ptr::ptrCPythonNetworkStream, "Network stream: ");
+				}
+				ImGui::EndTabItem();
+				ImGui::EndTabBar();
 		}
-
-		ImGui::EndFrame();
-		ImGui::Render();
-
-		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-		return pEndScene(pDevice);
-}
-
-HRESULT __stdcall Gui::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params) {
-		ImGui_ImplDX9_InvalidateDeviceObjects();
-		const auto result = pDevice->Reset(params);
-		if (result == D3DERR_INVALIDCALL) {
-				IM_ASSERT(0);
-		}
-		ImGui_ImplDX9_CreateDeviceObjects();
-		return pReset(pDevice, params);
+		ImGui::End();
 }
 
 void Gui::RenderVariable(void* value, const char* variableName) {
@@ -55,7 +35,7 @@ bool Gui::IsShowMenu() {
 		return showMenu == true;
 }
 
-bool Gui::IsToDetach() {
+bool Gui::IsDetach() {
 		return toDetach == true;
 }
 
@@ -63,23 +43,34 @@ bool Gui::IsImGuiInit() {
 		return InitImGui == true;
 }
 
-bool Gui::IsBlockedMouse() {
+bool Gui::IsMouseBlocked() {
 		return blockMouse == true;
 }
 
-bool Gui::IsBlockedKeyboard() {
+bool Gui::IsKeyboardBlocked() {
 		return blockKeyboard == true;
+}
+
+bool Gui::CanResize() {
+		return canResize == true;
 }
 
 void Gui::FlipMenu() {
 		showMenu = !showMenu;
 }
+
 void Gui::FlipDetach() {
 		toDetach = !toDetach;
 }
+
 void Gui::FlipBlockMouse() {
 		blockMouse = !blockMouse;
 }
+
 void Gui::FlipBlockKeyboard() {
 		blockKeyboard = !blockKeyboard;
+}
+
+void Gui::FlipCanResize() {
+		canResize = !canResize;
 }

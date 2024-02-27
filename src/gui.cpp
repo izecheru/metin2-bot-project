@@ -14,14 +14,23 @@ void Gui::RenderMenu() {
 				ImGui::SetNextWindowBgAlpha(0.8);
 		}
 		// here are the menu tabs
-		ImGui::Begin("cheeky little shit");
+		ImGui::Begin("cheeky little shit", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
 		if (ImGui::BeginTabBar("tabs")) {
 				// main tab
 				if (ImGui::BeginTabItem("main")) {
-						RenderVariable((void*) ptr::ptrCPythonCharacterManager, "Character manager: ");
-						RenderVariable((void*) ptr::ptrCPythonNetworkStream, "Network stream: ");
+						RenderVariable((void*) ptr::CPythonCharacterManager, "CPythonCharacterManager: ");
+						RenderVariable((void*) ptr::CPythonNetworkStream, "CPythonNetworkStream: ");
+						RenderVariable((void*) ptr::CFlyingManager, "CFlyingManager: ");
+						RenderVariable((void*) ptr::CRaceManager, "CRaceManager: ");
+						RenderVariable((void*) ptr::CPythonItem, "CPythonItem: ");
+						RenderVariable((void*) ptr::CItemManager, "CItemManager: ");
+						ImGui::EndTabItem();
 				}
-				ImGui::EndTabItem();
+				if (ImGui::BeginTabItem("second")) {
+						if (canUseSkill)
+								ImGui::Text("can use skill");
+						ImGui::EndTabItem();
+				}
 				ImGui::EndTabBar();
 		}
 		ImGui::End();

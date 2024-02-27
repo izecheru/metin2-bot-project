@@ -19,9 +19,12 @@ public:
 		bool showMenu = false;
 		bool InitImGui = false;
 		bool toDetach = false;
-		bool blockMouse = false;
-		bool blockKeyboard = false;
+		bool blockMouse = true;
+		bool blockKeyboard = true;
 		bool canResize = true;
+
+		bool showCInstanceBase = false;
+		bool canUseSkill = false;
 
 		void FlipMenu();
 		void FlipDetach();

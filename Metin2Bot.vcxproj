@@ -218,6 +218,7 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="src\data.h" />
     <ClInclude Include="src\dllFunctions.h" />
+    <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\gameFunctions.h" />
     <ClInclude Include="src\init.h" />
     <ClInclude Include="src\pointers.h" />

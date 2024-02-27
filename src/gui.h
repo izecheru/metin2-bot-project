@@ -3,6 +3,7 @@
 #include "pointers.h"
 #include "singleton.h"
 #include "gameFunctions.h"
+#include "entity.h"
 // directx
 #include "../ext/detours/detours.h"
 #include "../ext/directx/Include/d3d9.h"
@@ -22,9 +23,9 @@ public:
 		bool toDetach = false;
 		bool blockMouse = false;
 		bool blockKeyboard = false;
-		bool canResize = true;
-		bool showText = false;
-
+		bool canResize = false;
+		bool showInstanceDetails = false;
+		Entity* ent;
 		GameFunc& gameFunc = GameFunc::getInstance();
 
 		bool showCInstanceBase = false;

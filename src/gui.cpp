@@ -1,5 +1,6 @@
 #include "gui.h"
 #include "gameFunctions.h"
+#include "entity.h"
 
 void Gui::RenderMenu() {
 		if (ImGui::GetIO().WantCaptureMouse == true) {
@@ -8,14 +9,10 @@ void Gui::RenderMenu() {
 				ImGui::GetIO().MouseDrawCursor = false;
 		}
 
-		// if we want the window to be resized to 600 by 400 as soon as we resize it manually
-		// same behaviour for the opacity
-		if (!CanResize()) {
-				ImGui::SetNextWindowSize(ImVec2(600, 400));
-				ImGui::SetNextWindowBgAlpha(0.8);
-		}
 		// here are the menu tabs
-		ImGui::Begin("cheeky little shit", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
+		ImGui::Begin("cheeky little shit", nullptr, ImGuiWindowFlags_NoDecoration);
+		ImGui::SetNextWindowPos(ImVec2(0, 20));
+
 		if (ImGui::BeginTabBar("tabs")) {
 				// main tab
 				if (ImGui::BeginTabItem("main")) {
@@ -25,17 +22,17 @@ void Gui::RenderMenu() {
 						RenderVariable((void*) ptr::CRaceManager, "CRaceManager: ");
 						RenderVariable((void*) ptr::CPythonItem, "CPythonItem: ");
 						RenderVariable((void*) ptr::CItemManager, "CItemManager: ");
-						RenderVariable((void*) ptr::test, "?: ");
 						ImGui::EndTabItem();
 				}
 				if (ImGui::BeginTabItem("second")) {
-						ImGui::Checkbox("get the main instance ptr", &showText);
-						if (showText) {
-								ImGui::Text(" %p", gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
-								ImGui::Text("(void*) %p", (void*) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
-								ImGui::Text("*(int*) %p", *(int*) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
-								ImGui::Text("*(int**) %p", *(int**) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
-								ImGui::Text("function address %p", gameFunc.GetMainInstancePtr);
+						if (ImGui::Button("get the main instance ptr")) {
+								ent = gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager);
+								showInstanceDetails = true;
+						}
+						if (showInstanceDetails) {
+								ImGui::Text("%p ", ent);
+								ImGui::Text("%s ", ent->name);
+								ImGui::Text("%.2f %.2f %.2f ", ent->position.x, ent->position.y, ent->position.z);
 						}
 						ImGui::EndTabItem();
 				}

@@ -1,4 +1,5 @@
 #include "gui.h"
+#include "gameFunctions.h"
 
 void Gui::RenderMenu() {
 		if (ImGui::GetIO().WantCaptureMouse == true) {
@@ -24,11 +25,18 @@ void Gui::RenderMenu() {
 						RenderVariable((void*) ptr::CRaceManager, "CRaceManager: ");
 						RenderVariable((void*) ptr::CPythonItem, "CPythonItem: ");
 						RenderVariable((void*) ptr::CItemManager, "CItemManager: ");
+						RenderVariable((void*) ptr::test, "?: ");
 						ImGui::EndTabItem();
 				}
 				if (ImGui::BeginTabItem("second")) {
-						if (canUseSkill)
-								ImGui::Text("can use skill");
+						ImGui::Checkbox("get the main instance ptr", &showText);
+						if (showText) {
+								ImGui::Text(" %p", gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
+								ImGui::Text("(void*) %p", (void*) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
+								ImGui::Text("*(int*) %p", *(int*) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
+								ImGui::Text("*(int**) %p", *(int**) gameFunc.GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager));
+								ImGui::Text("function address %p", gameFunc.GetMainInstancePtr);
+						}
 						ImGui::EndTabItem();
 				}
 				ImGui::EndTabBar();

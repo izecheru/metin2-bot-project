@@ -1,7 +1,6 @@
 #include "dllFunctions.h"
 #include "data.h"
-#include "hook.h"
-
+#include "init.h"
 
 DWORD WINAPI dllFunctions::ExitThread(LPVOID lpThreadParameter) {
 		Hook::Shutdown();
@@ -11,6 +10,6 @@ DWORD WINAPI dllFunctions::ExitThread(LPVOID lpThreadParameter) {
 
 DWORD WINAPI dllFunctions::MainThread(LPVOID lpThreadParameter) {
 		if (Data::g_hModule == NULL) 	Data::g_hModule = (HMODULE) lpThreadParameter;
-		Hook::Setup();
+		init::InitHack();
 		return TRUE;
 }

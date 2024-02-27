@@ -29,8 +29,8 @@ uintptr_t Scanner::FindPattern(const char* chPattern, const char* chMask) {
 
 uintptr_t Scanner::FindClass(OffsetSig signature) {
 		uintptr_t addressFound = FindPattern(signature.pattern, signature.mask);
-		uintptr_t result = *(uintptr_t*) (addressFound + signature.offset);
-		return result;
+		uintptr_t result = (addressFound + signature.offset);
+		return *(uintptr_t*) result;
 }
 
 uintptr_t Scanner::FindSignature(Sig sig) {

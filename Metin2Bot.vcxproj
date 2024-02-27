@@ -218,6 +218,8 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="src\data.h" />
     <ClInclude Include="src\dllFunctions.h" />
+    <ClInclude Include="src\gameFunctions.h" />
+    <ClInclude Include="src\init.h" />
     <ClInclude Include="src\pointers.h" />
     <ClInclude Include="src\signature.h" />
     <ClInclude Include="src\gui.h" />
@@ -276,8 +278,11 @@
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\dllFunctions.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\gameFunctions.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hook.cpp" />
+    <ClCompile Include="src\init.cpp" />
+    <ClCompile Include="src\pointers.cpp" />
     <ClCompile Include="src\scanner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "pointers.h"
 #include "singleton.h"
+#include "gameFunctions.h"
 // directx
 #include "../ext/detours/detours.h"
 #include "../ext/directx/Include/d3d9.h"
@@ -19,9 +20,12 @@ public:
 		bool showMenu = false;
 		bool InitImGui = false;
 		bool toDetach = false;
-		bool blockMouse = true;
-		bool blockKeyboard = true;
+		bool blockMouse = false;
+		bool blockKeyboard = false;
 		bool canResize = true;
+		bool showText = false;
+
+		GameFunc& gameFunc = GameFunc::getInstance();
 
 		bool showCInstanceBase = false;
 		bool canUseSkill = false;

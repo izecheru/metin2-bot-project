@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 namespace ptr {
+		void Init();
 		inline uintptr_t CRaceManager = 0;
 		inline uintptr_t CFlyingManager = 0;
 		inline uintptr_t CPythonCharacterManager = 0;
@@ -10,5 +11,5 @@ namespace ptr {
 		inline uintptr_t CPythonItem = 0;
 		inline uintptr_t CInstanceBase = 0;
 		inline uintptr_t CItemManager = 0;
-		inline uintptr_t test = 0;
+		inline uintptr_t* test = nullptr;
 }

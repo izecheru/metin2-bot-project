@@ -4,11 +4,10 @@
 #include "data.h"
 #include "gui.h"
 
-bool Hook::Setup() {
+bool Hook::Init() {
 		if (GetD3D9Device() && GetD3D9InputDevice()) {
 				// getting the pattern scanner instance to scan for patterns
 				// in the game memory
-				Scanner& scanner = Scanner::getInstance();
 
 				Data::window = FindWindowA(NULL, "Elaris v1.0");
 				oWndProc = (WndProc_t) SetWindowLongPtr(Data::window, GWL_WNDPROC, (LONG_PTR) Hook::WndProc);
@@ -18,21 +17,6 @@ bool Hook::Setup() {
 				pReset = (Reset_t) deviceTable[16];
 				pGetDeviceData = (GetDeviceData_t) inputDeviceTable[10];
 				pGetDeviceState = (GetDeviceState_t) inputDeviceTable[9];
-				// get the game pointers
-				ptr::CPythonCharacterManager = scanner.FindClass(elaris::CPyhtonCharacterManager);
-				ptr::CPythonNetworkStream = scanner.FindClass(elaris::CPythonNetworkStream);
-				ptr::CPythonPlayer = scanner.FindClass(elaris::CPythonPlayer);
-				ptr::CFlyingManager = scanner.FindClass(elaris::CFlyingManager);
-				ptr::CRaceManager = scanner.FindClass(elaris::CRaceManager);
-				ptr::CPythonItem = scanner.FindClass(elaris::CPythonItem);
-				ptr::CItemManager = scanner.FindClass(elaris::CItemManager);
-
-				UseSkill = scanner.FindFunction<UseSkill_t>(elaris::SendUseSkill);
-				DropItem = scanner.FindFunction<SendItemDropPacket_t>(elaris::SendItemDropPacket);
-				SetAutoAttackTarget = scanner.FindFunction<SetAutoAttackTarget_t>(elaris::SetAutoAttackTarget);
-				GetMainInstancePtr = scanner.FindFunction<GetMainInstancePtr_t>(elaris::GetMainInstancePtr);
-				CanUseSkill = scanner.FindFunction<CanUseSkill_t>(elaris::CanUseSkill);
-				ptr::CInstanceBase = *(uintptr_t*) GetMainInstancePtr(*(void**) ptr::CPythonCharacterManager);
 
 				// hook functions
 				DetourTransactionBegin();
@@ -123,9 +107,6 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 								case VK_END:
 										gui.FlipDetach();
 										break;
-								case VK_F1:
-										//not working atm, ptr is wrong	gui.canUseSkill = CanUseSkill(*(void**) ptr::CInstanceBase);
-										break;
 						}
 				}
 				return TRUE;
@@ -157,7 +138,7 @@ HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
 HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags) {
 		HRESULT result = pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
 		if (result == DI_OK) {
-				if (gui.IsShowMenu()) {
+				if (gui.showMenu) {
 						*pdwInOut = 0; //set array size 0
 				}
 		}

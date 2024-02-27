@@ -1,4 +1,5 @@
 #include "dllFunctions.h"
+#include <iostream>
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved) {
 		switch (dwReason) {

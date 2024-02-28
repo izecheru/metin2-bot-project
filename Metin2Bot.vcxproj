@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="ext\detours\detours.h" />
     <ClInclude Include="ext\detours\detver.h" />
+    <ClInclude Include="ext\detours\syelog.h" />
     <ClInclude Include="ext\directx\Include\audiodefs.h" />
     <ClInclude Include="ext\directx\Include\comdecl.h" />
     <ClInclude Include="ext\directx\Include\D2D1.h" />
@@ -216,11 +217,13 @@
     <ClInclude Include="ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="ext\imgui\imstb_textedit.h" />
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\cheatVars.h" />
     <ClInclude Include="src\data.h" />
     <ClInclude Include="src\dllFunctions.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\gameFunctions.h" />
     <ClInclude Include="src\init.h" />
+    <ClInclude Include="src\patch.h" />
     <ClInclude Include="src\pointers.h" />
     <ClInclude Include="src\signature.h" />
     <ClInclude Include="src\gui.h" />
@@ -283,6 +286,7 @@
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hook.cpp" />
     <ClCompile Include="src\init.cpp" />
+    <ClCompile Include="src\patch.cpp" />
     <ClCompile Include="src\pointers.cpp" />
     <ClCompile Include="src\scanner.cpp" />
   </ItemGroup>

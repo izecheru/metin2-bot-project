@@ -2,7 +2,10 @@
 #include <Windows.h>
 
 #include "dllFunctions.h"
+#include "data.h"
+#include "patch.h"
 #include "gui.h"
+#include "../ext/detours/detours.h"
 // ui drawing
 #include <dinput.h>
 #pragma comment(lib, "Dinput8.lib")
@@ -14,24 +17,42 @@ using GetDeviceData_t = HRESULT(__stdcall*)(IDirectInputDevice8*, DWORD, LPDIDEV
 using EndScene_t = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
 using Reset_t = HRESULT(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
 
-namespace Hook {
-		inline Gui& gui = Gui::getInstance();
-		inline void** deviceTable;
-		inline void** inputDeviceTable;
-		inline EndScene_t pEndScene = nullptr;
-		inline Reset_t pReset = nullptr;
-		inline WndProc_t oWndProc;
-		inline GetDeviceState_t pGetDeviceState;
-		inline GetDeviceData_t pGetDeviceData;
+class Hook {
+private:
+		static inline FILE* fp = nullptr;
+		static inline void** deviceTable;
+		static inline void** inputDeviceTable;
 
-		HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
-		HRESULT __stdcall Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params);
-		HRESULT __stdcall GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
-		HRESULT __stdcall GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags);
+public:
+		// just for packet send reading
+		static char __fastcall hkSendPacket(int a1, int ebx, unsigned int a2, long** a3);
 
-		bool Init();
-		bool Shutdown();
-		bool GetD3D9Device();
-		bool GetD3D9InputDevice();
-		LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		// gui related hooks
+		static inline EndScene_t pEndScene = nullptr;
+		static inline EndScene_t oEndScene = nullptr;
+
+		static inline Reset_t pReset = nullptr;
+		static inline Reset_t oReset = nullptr;
+
+		static inline WndProc_t oWndProc;
+
+		static inline GetDeviceState_t pGetDeviceState = nullptr;
+		static inline GetDeviceState_t oGetDeviceState = nullptr;
+
+		static inline GetDeviceData_t pGetDeviceData = nullptr;
+		static inline GetDeviceData_t oGetDeviceData = nullptr;
+
+		static HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
+		static HRESULT __stdcall Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params);
+		static HRESULT __stdcall GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
+		static HRESULT __stdcall GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags);
+
+		static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+		static bool Init();
+		static bool Shutdown();
+
+		static bool InitMinHook();
+		static bool GetD3D9Device();
+		static bool GetD3D9InputDevice();
 };

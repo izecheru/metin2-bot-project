@@ -4,7 +4,9 @@
 #include "gameFunctions.h"
 namespace init {
 		void InitHack();
-		void InitHooks();
-		void InitFuncs();
-		void InitPointers();
+
+		inline void InitGui();
+		inline void InitHooks();
+		inline void InitFuncs();
+		inline void InitPointers();
 }

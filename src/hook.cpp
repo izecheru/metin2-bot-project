@@ -1,14 +1,50 @@
-#include "pointers.h"
-#include "scanner.h"
 #include "hook.h"
-#include "data.h"
-#include "gui.h"
+
+
+#define CONSOLE1
+#ifdef CONSOLE
+#include<iostream>
+
+
+void console(LPVOID hModule) { //console assignment
+
+		if (AllocConsole()) {
+				freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout); //have to use freopen_s instead of freopen to get ride of the _CRT_SECURE_NO_WARNINGS message
+				freopen_s(reinterpret_cast<FILE**>(stdin), "CONIN$", "r", stdin);
+				freopen_s(reinterpret_cast<FILE**>(stderr), "CONOUT$", "w", stderr);
+
+				AttachConsole(GetProcessId((hModule)));
+
+				SetConsoleTitle("My farm bot");
+
+				// disable close button
+				EnableMenuItem(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_DISABLED);
+		}
+}
+using std::cout;
+using std::endl;
+char __fastcall Hook::hkSendPacket(int a1, int ebx, unsigned int a2, long** a3) {
+		for (long i = 0; i < sizeof(a3); i++) {
+				if (i == sizeof(a3) - 1)
+						cout << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << endl;
+				else if (i == 0)
+						cout << "Packet header : " << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << ", ";
+				else
+						cout << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << ", ";
+		}
+		return GameFunc::SendPacket(a1, ebx, a2, a3);
+}
+#endif
+
 
 bool Hook::Init() {
 		if (GetD3D9Device() && GetD3D9InputDevice()) {
 				// getting the pattern scanner instance to scan for patterns
 				// in the game memory
 
+#ifdef CONSOLE
+				console(Data::g_hModule);
+#endif
 				Data::window = FindWindowA(NULL, "Elaris v1.0");
 				oWndProc = (WndProc_t) SetWindowLongPtr(Data::window, GWL_WNDPROC, (LONG_PTR) Hook::WndProc);
 
@@ -25,14 +61,19 @@ bool Hook::Init() {
 				DetourAttach(&(PVOID&) pReset, Reset);
 				DetourAttach(&(PVOID&) pGetDeviceData, GetDeviceData);
 				DetourAttach(&(PVOID&) pGetDeviceState, GetDeviceState);
+				DetourAttach(&(PVOID&) Pointer::pMetinStonePatch, Patch::MetinAutoFarmPatch);
 				DetourTransactionCommit();
+
 				return true;
 		}
 		return false;
 }
 
 bool Hook::Shutdown() {
-		if (gui.IsImGuiInit()) {
+#ifdef CONSOLE
+		FreeConsole();
+#endif
+		if (Gui::IsImGuiInit()) {
 				ImGui_ImplDX9_Shutdown();
 				ImGui_ImplWin32_Shutdown();
 				ImGui::DestroyContext();
@@ -44,6 +85,9 @@ bool Hook::Shutdown() {
 		DetourDetach(&(PVOID&) pGetDeviceData, GetDeviceData);
 		DetourDetach(&(PVOID&) pGetDeviceState, GetDeviceState);
 		DetourTransactionCommit();
+#ifdef CONSOLE
+		DetourDetach(&(PVOID&) GameFunc::SendPacket, hkSendPacket);
+#endif
 		SetWindowLongPtr(Data::window, GWLP_WNDPROC, (LONG_PTR) oWndProc);
 		return true;
 }
@@ -96,16 +140,16 @@ bool Hook::GetD3D9Device() {
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
 		WPARAM wParam, LPARAM lParam);
 LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		if (gui.IsShowMenu()) {
+		if (Gui::IsShowMenu()) {
 				ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
 				if (uMsg == WM_KEYDOWN) {
 						switch (wParam) {
 								case VK_INSERT:
-										gui.FlipMenu();
+										Gui::FlipMenu();
 										break;
 								case VK_END:
-										gui.FlipDetach();
+										Gui::FlipDetach();
 										break;
 						}
 				}
@@ -114,10 +158,10 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		if (uMsg == WM_KEYDOWN) {
 				switch (wParam) {
 						case VK_INSERT:
-								gui.FlipMenu();
+								Gui::FlipMenu();
 								break;
 						case VK_END:
-								gui.FlipDetach();
+								Gui::FlipDetach();
 								break;
 				}
 		}
@@ -127,7 +171,7 @@ LRESULT WINAPI  Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData) {
 		HRESULT result = pGetDeviceState(pThis, cbData, lpvData);
 		if (result == DI_OK) {
-				if (gui.IsShowMenu()) {
+				if (Gui::IsShowMenu()) {
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[0] = 0;
 						((LPDIMOUSESTATE2) lpvData)->rgbButtons[1] = 0;
 				}
@@ -138,7 +182,7 @@ HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
 HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags) {
 		HRESULT result = pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
 		if (result == DI_OK) {
-				if (gui.showMenu) {
+				if (Gui::IsShowMenu()) {
 						*pdwInOut = 0; //set array size 0
 				}
 		}
@@ -147,7 +191,7 @@ HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObject
 
 HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice) {
 		// if we must unload the dll then we create a thread and exit
-		if (gui.toDetach) {
+		if (Gui::IsDetach()) {
 				CreateThread(nullptr, 0, dllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
 		}
 
@@ -156,8 +200,8 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice) {
 		if (pDevice == NULL)
 				return pEndScene(pDevice);
 
-		if (!gui.InitImGui) {
-				gui.InitImGui = true;
+		if (!Gui::IsImGuiInit()) {
+				Gui::FlipImGui();
 				ImGui::CreateContext();
 				ImGuiIO& io = ImGui::GetIO();
 				ImGui_ImplWin32_Init(FindWindowA(NULL, "Elaris v1.0"));
@@ -168,8 +212,12 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice) {
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 		// here goes the menu
-		if (gui.showMenu) {
-				gui.RenderMenu();
+
+		if (Gui::IsShowMenu()) {
+				Gui::RenderMenu();
+		}
+		if (Gui::IsShowCoords()) {
+				Gui::RenderCoordWindow();
 		}
 
 		ImGui::EndFrame();

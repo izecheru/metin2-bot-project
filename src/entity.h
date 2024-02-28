@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include <map>
 
 struct Vector3 {
 		float x;
@@ -17,3 +18,5 @@ public:
 		int32_t attackStance; //0x0688
 		char pad_068C[2508]; //0x068C
 }; //Size: 0x1058
+
+using TCharacterInstanceMap = std::map<DWORD, Entity*>;

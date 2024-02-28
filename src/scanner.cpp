@@ -10,10 +10,11 @@ MODULEINFO Scanner::GetModuleInfo(char* szModule) {
 }
 
 uintptr_t Scanner::FindPattern(const char* chPattern, const char* chMask) {
+		dwBase = (DWORD) GetModuleHandleA(0);
+		chModule = (char*) "Elaris v1.0";
 		MODULEINFO mInfo = GetModuleInfo(Scanner::chModule);
 		DWORD size = (DWORD) mInfo.SizeOfImage;
 		DWORD patternLength = (DWORD) strlen(chMask);
-		dwBase = (DWORD) GetModuleHandleA(0);
 
 		for (DWORD i = 0; i < size - patternLength; i++) {
 				bool found = true;

@@ -1,13 +1,14 @@
 #include "pointers.h"
 #include "signature.h"
 #include "scanner.h"
-void ptr::Init() {
-		Scanner& scanner = Scanner::getInstance();
-		ptr::CPythonCharacterManager = scanner.FindClass(elaris::CPyhtonCharacterManager);
-		ptr::CPythonNetworkStream = scanner.FindClass(elaris::CPythonNetworkStream);
-		ptr::CPythonPlayer = scanner.FindClass(elaris::CPythonPlayer);
-		ptr::CFlyingManager = scanner.FindClass(elaris::CFlyingManager);
-		ptr::CRaceManager = scanner.FindClass(elaris::CRaceManager);
-		ptr::CPythonItem = scanner.FindClass(elaris::CPythonItem);
-		ptr::CItemManager = scanner.FindClass(elaris::CItemManager);
+void Pointer::Init() {
+		CPythonCharacterManager = Scanner::FindClass(elaris::CPyhtonCharacterManager);
+		CPythonNetworkStream = Scanner::FindClass(elaris::CPythonNetworkStream);
+		CPythonPlayer = Scanner::FindClass(elaris::CPythonPlayer);
+		CFlyingManager = Scanner::FindClass(elaris::CFlyingManager);
+		CRaceManager = Scanner::FindClass(elaris::CRaceManager);
+		CPythonItem = Scanner::FindClass(elaris::CPythonItem);
+		CItemManager = Scanner::FindClass(elaris::CItemManager);
+		pMetinStonePatch = Scanner::FindPattern(elaris::PatchMetinAutofarm.pattern, elaris::PatchMetinAutofarm.mask);
+		oMetinStonePatch = pMetinStonePatch + 0x3;
 }

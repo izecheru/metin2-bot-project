@@ -5,7 +5,6 @@
 #include "gameFunctions.h"
 #include "entity.h"
 // directx
-#include "../ext/detours/detours.h"
 #include "../ext/directx/Include/d3d9.h"
 #include "../ext/directx/Include/d3dx9.h"
 
@@ -16,34 +15,44 @@
 #include "../ext/imgui/imgui_impl_win32.h"
 
 
-class Gui : public Singleton<Gui> {
+class Gui {
+		inline static bool showMenu;
+		inline static bool showCoords;
+		inline static bool InitImGui;
+		inline static bool toDetach;
+		inline static bool blockMouse;
+		inline static bool blockKeyboard;
+		inline static bool canResize;
+		inline static bool showInstanceDetails;
+		inline static bool entitiesInit;
+		inline static TCharacterInstanceMap* entities;
+		inline static Entity* ent;
+		inline static bool showCInstanceBase;
+		inline static bool canUseSkill;
+		inline static bool guiInit;
+		inline static bool applyMetinSlider;
+
 public:
-		bool showMenu = false;
-		bool InitImGui = false;
-		bool toDetach = false;
-		bool blockMouse = false;
-		bool blockKeyboard = false;
-		bool canResize = false;
-		bool showInstanceDetails = false;
-		Entity* ent;
-		GameFunc& gameFunc = GameFunc::getInstance();
+		static void Init();
 
-		bool showCInstanceBase = false;
-		bool canUseSkill = false;
+		static void FlipMenu();
+		static void FlipDetach();
+		static void FlipBlockMouse();
+		static void FlipBlockKeyboard();
+		static void FlipCanResize();
+		static void FlipImGui();
+		static void FlipShowCoords();
 
-		void FlipMenu();
-		void FlipDetach();
-		void FlipBlockMouse();
-		void FlipBlockKeyboard();
-		void FlipCanResize();
 
-		bool IsShowMenu();
-		bool IsDetach();
-		bool IsImGuiInit();
-		bool IsMouseBlocked();
-		bool IsKeyboardBlocked();
-		bool CanResize();
+		static bool IsShowCoords();
+		static bool IsShowMenu();
+		static bool IsDetach();
+		static bool IsImGuiInit();
+		static bool IsMouseBlocked();
+		static bool IsKeyboardBlocked();
+		static bool CanResize();
 
-		void RenderVariable(void* value, const char* variableName);
-		void RenderMenu();
+		static void RenderVariable(int value, const char* variableName);
+		static void RenderMenu();
+		static void RenderCoordWindow();
 };

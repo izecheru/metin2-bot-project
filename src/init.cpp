@@ -1,14 +1,13 @@
 #include "init.h"
-
 void init::InitHack() {
 		InitFuncs();
 		InitPointers();
 		InitHooks();
+		InitGui();
 }
 
 void init::InitFuncs() {
-		GameFunc& gFunc = GameFunc::getInstance();
-		gFunc.Init();
+		GameFunc::Init();
 }
 
 void init::InitHooks() {
@@ -16,5 +15,9 @@ void init::InitHooks() {
 }
 
 void init::InitPointers() {
-		ptr::Init();
+		Pointer::Init();
+}
+
+void init::InitGui() {
+		Gui::Init();
 }

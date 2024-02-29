@@ -29,18 +29,14 @@ public:
 
 		// gui related hooks
 		static inline EndScene_t pEndScene = nullptr;
-		static inline EndScene_t oEndScene = nullptr;
 
 		static inline Reset_t pReset = nullptr;
-		static inline Reset_t oReset = nullptr;
 
 		static inline WndProc_t oWndProc;
 
 		static inline GetDeviceState_t pGetDeviceState = nullptr;
-		static inline GetDeviceState_t oGetDeviceState = nullptr;
 
 		static inline GetDeviceData_t pGetDeviceData = nullptr;
-		static inline GetDeviceData_t oGetDeviceData = nullptr;
 
 		static HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
 		static HRESULT __stdcall Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params);
@@ -52,7 +48,6 @@ public:
 		static bool Init();
 		static bool Shutdown();
 
-		static bool InitMinHook();
 		static bool GetD3D9Device();
 		static bool GetD3D9InputDevice();
 };

@@ -61,7 +61,6 @@ bool Hook::Init() {
 				DetourAttach(&(PVOID&) pReset, Reset);
 				DetourAttach(&(PVOID&) pGetDeviceData, GetDeviceData);
 				DetourAttach(&(PVOID&) pGetDeviceState, GetDeviceState);
-				DetourAttach(&(PVOID&) Pointer::pMetinStonePatch, Patch::MetinAutoFarmPatch);
 				DetourTransactionCommit();
 
 				return true;

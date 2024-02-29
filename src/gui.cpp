@@ -49,18 +49,8 @@ void Gui::RenderMenu() {
 				// main 
 
 				if (ImGui::BeginTabItem("main")) {
-						if (ImGui::SliderInt("Metin limit autofarm ", &Var::metinLimit, 0, 200, "%d", ImGuiSliderFlags_AlwaysClamp)) {
-								if (ImGui::IsItemDeactivatedAfterEdit() && applyMetinSlider) {
-										applyMetinSlider = false;
-								}
-						}
-						/*if (ImGui::Button("Main instance")) {
-								ent = GameFunc::GetMainInstancePtr(*(void**) Pointer::CPythonCharacterManager);
-								if (ent != nullptr) {
-										showInstanceDetails = true;
-										showCoords = true;
-								}
-						}*/
+						ImGui::Text("CRaceManager %p", Pointer::CRaceManager);
+						ImGui::Text("CPythonSkill %p", Pointer::test);
 						ImGui::EndTabItem();
 				}
 

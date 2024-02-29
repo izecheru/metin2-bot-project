@@ -21,7 +21,7 @@ struct Sig {
 		}
 };
 namespace elaris {
-		inline OffsetSig PatchMetinAutofarm("\x83\xF8\x00\x72\x00\x8B\x35", "xx?x?xx", 0x2);
+		inline Sig PatchMetinAutofarm("\x83\xF8\x00\x72\x00\x8B\x35", "xx?x?xx");
 		inline OffsetSig CInstanceBase("\x8B\xCF\xE8\x00\x00\x00\x00\x85\xC0\x75\x00\x68", "xxx????xxx?x", 0x2);
 		inline OffsetSig CPythonPlayer("\x8B\x0D\x00\x00\x00\x00\x6A\x00\x68\x00\x00\x00\x00\x6A\x00\xE8", "xx????x?x????x?x", 0x2);
 		inline OffsetSig CItemManager("\x8B\x0D\x00\x00\x00\x00\x50\xE8\x00\x00\x00\x00\x85\xC0\x74\x00\x56", "xx????xx????xxx?x", 0x2);

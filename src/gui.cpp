@@ -30,42 +30,39 @@ void Gui::RenderCoordWindow() {
 		} else {
 				ImGui::GetIO().MouseDrawCursor = false;
 		}
-		//ImGui::Text("%p ", ent);
 		ImGui::Text("%s ", ent->name);
 		ImGui::Text("%.2f %.2f %.2f ", ent->position.x, ent->position.y, ent->position.z);
 		ImGui::End();
 }
 
 void Gui::RenderMenu() {
-		if (!entitiesInit) {
-				entities = (TCharacterInstanceMap*) (Pointer::CPythonCharacterManager + 0xc);
-				if (entities != nullptr)
-						entitiesInit = true;
-		}
 		// here are the menu tabs
 		ImGui::Begin("cheeky little shit", nullptr, ImGuiWindowFlags_NoDecoration);
-
 		if (ImGui::BeginTabBar("tabs")) {
 				// main 
 
-				if (ImGui::BeginTabItem("main")) {
-						ImGui::Text("CRaceManager %p", Pointer::CRaceManager);
-						ImGui::Text("CPythonSkill %p", Pointer::test);
+				if (ImGui::BeginTabItem("Main")) {
+						ImGui::Text("%p", Pointer::CPythonCharacterManager);
+						ImGui::Text("test %p", Pointer::TCharacterInstanceMapAddress);
+						if (ImGui::Button("Show entity details")) {
+								ent = (Entity*) GameFunc::GetMainInstancePtr(*(void**) Pointer::CPythonCharacterManager);
+								if (ent != nullptr)
+										FlipShowCoords();
+						}
 						ImGui::EndTabItem();
 				}
 
-				////second tab
-				//if (ImGui::BeginTabItem("second")) {
-				//		if (ImGui::Button("get the main instance ptr")) {
-				//				ent = GameFunc::GetMainInstancePtr(*(void**) Pointer::CPythonCharacterManager);
-				//				if (ent != nullptr) {
-				//						showInstanceDetails = true;
-				//				}
-				//		}
-
-
-				//		ImGui::EndTabItem();
-				//}
+				if (ImGui::BeginTabItem("Entities")) {
+						if (ImGui::Button("Show entity details")) {
+								entities = GameFunc::GetEntities();
+								for (TCharacterInstanceMap::iterator itor = entities.begin(); itor != entities.end(); itor++) {
+										ImGui::Text("%d", itor->first);
+								}
+						} else {
+								ImGui::Text("list is empty");
+						}
+						ImGui::EndTabItem();
+				}
 				ImGui::EndTabBar();
 		}
 		ImGui::End();

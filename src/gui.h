@@ -25,7 +25,7 @@ class Gui {
 		inline static bool canResize;
 		inline static bool showInstanceDetails;
 		inline static bool entitiesInit;
-		inline static TCharacterInstanceMap* entities;
+		inline static TCharacterInstanceMap entities;
 		inline static Entity* ent;
 		inline static bool showCInstanceBase;
 		inline static bool canUseSkill;

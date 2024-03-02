@@ -300,15 +300,6 @@
     <ClInclude Include="src\cheatVars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ext\minhook\buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\minhook\minhook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\minhook\trampoline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ext\detours\detours.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -347,10 +338,6 @@
     <Library Include="ext\directx\lib\x86\xapobased.lib" />
     <Library Include="ext\directx\lib\x86\XAPOFX.lib" />
     <Library Include="ext\directx\lib\x86\XInput.lib" />
-    <Library Include="ext\minhook\lib\Debug\libMinHook.x64.lib" />
-    <Library Include="ext\minhook\lib\Debug\libMinHook.x86.lib" />
-    <Library Include="ext\minhook\lib\Release\libMinHook.x86.lib" />
-    <Library Include="ext\minhook\lib\Release\libMinHook.x64.lib" />
     <Library Include="ext\detours\lib\detours.lib" />
     <Library Include="ext\detours\lib\syelog.lib" />
   </ItemGroup>
@@ -425,15 +412,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\patch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\minhook\buffer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\minhook\hook.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\minhook\trampoline.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

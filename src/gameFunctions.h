@@ -20,4 +20,6 @@ public:
 		inline static SetAutoAttackTarget_t SetAutoAttackTarget;
 		inline static GetMainInstancePtr_t GetMainInstancePtr;
 		inline static CanUseSkill_t CanUseSkill;
+
+		static TCharacterInstanceMap GetEntities();
 };

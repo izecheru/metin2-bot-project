@@ -42,8 +42,8 @@ void Gui::RenderMenu() {
 				// main 
 
 				if (ImGui::BeginTabItem("Main")) {
-						ImGui::Text("%p", Pointer::CPythonCharacterManager);
-						ImGui::Text("test %p", Pointer::TCharacterInstanceMapAddress);
+						ImGui::Text("CPythonCharacterManager %p", Pointer::CPythonCharacterManager);
+						ImGui::Text("CPythonPlayer %p", Pointer::CPythonPlayer);
 						if (ImGui::Button("Show entity details")) {
 								ent = (Entity*) GameFunc::GetMainInstancePtr(*(void**) Pointer::CPythonCharacterManager);
 								if (ent != nullptr)
@@ -54,18 +54,16 @@ void Gui::RenderMenu() {
 
 				if (ImGui::BeginTabItem("Entities")) {
 						if (ImGui::Button("Show entity details")) {
-								entities = GameFunc::GetEntities();
-								for (TCharacterInstanceMap::iterator itor = entities.begin(); itor != entities.end(); itor++) {
-										ImGui::Text("%d", itor->first);
+								entities = *(TCharacterInstanceMap*) GameFunc::GetEntities();
+								if (auto itor = entities.begin(); itor->first == NULL) {
+										ImGui::Text("entities map is null");
 								}
-						} else {
-								ImGui::Text("list is empty");
 						}
 						ImGui::EndTabItem();
 				}
 				ImGui::EndTabBar();
+				ImGui::End();
 		}
-		ImGui::End();
 }
 
 void Gui::RenderVariable(int value, const char* variableName) {

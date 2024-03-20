@@ -11,6 +11,15 @@ void GameFunc::Init() {
 		SendPacket = Scanner::FindFunction<SendPacket_t>(elaris::SendPacket);
 }
 
-TCharacterInstanceMap GameFunc::GetEntities() {
-		return *(TCharacterInstanceMap*) (*reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(Pointer::CPythonCharacterManager + 34) + 4));
+TCharacterInstanceMap* GameFunc::GetEntities() {
+		// Assuming Pointer::CPythonCharacterManager is the base address of CPythonCharacterManager structure
+		DWORD* characterManagerPtr = *reinterpret_cast<DWORD**>(Pointer::CPythonCharacterManager);
+
+		// Assuming CInstanceBase is at offset 0xC from CPythonCharacterManager
+		DWORD* instanceBasePtr = reinterpret_cast<DWORD*>(characterManagerPtr + 0x14);
+
+		// Assuming TCharacterInstanceMap is at offset 0x8 from CInstanceBase
+		TCharacterInstanceMap* entitiesMap = reinterpret_cast<TCharacterInstanceMap*>(instanceBasePtr + 0x8);
+
+		return entitiesMap;
 }

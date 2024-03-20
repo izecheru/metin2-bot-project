@@ -21,5 +21,5 @@ public:
 		inline static GetMainInstancePtr_t GetMainInstancePtr;
 		inline static CanUseSkill_t CanUseSkill;
 
-		static TCharacterInstanceMap GetEntities();
+		static TCharacterInstanceMap* GetEntities();
 };

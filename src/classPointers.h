@@ -1,9 +1,12 @@
 #pragma once
 #include <Windows.h>
 
-class Pointer {
+class ClassPointers
+{
 public:
 		static void Init();
+
+		// Those are all class pointers
 		static inline uintptr_t CRaceManager = 0;
 		static inline uintptr_t CFlyingManager = 0;
 		static inline uintptr_t CPythonCharacterManager = 0;

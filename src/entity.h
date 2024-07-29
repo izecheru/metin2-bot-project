@@ -1,8 +1,9 @@
 #pragma once
-#include <stdint.h>
 #include <map>
+#include <stdint.h>
 
-struct Vector3 {
+struct Vector3
+{
 		float x;
 		float y;
 		float z;
@@ -13,7 +14,8 @@ struct Vector3 {
 #define CHECK_BAD_NUM(x) if(IsBadReadPtr(this, sizeof(x))) return 0
 #define CHECK_BAD_VEC3(x) if(IsBadReadPtr(this, sizeof(x))) return Vector3{0,0,0}
 
-class Entity {
+class Entity
+{
 public:
 		char pad_0000[32]; //0x0000
 		char name[20]; //0x0020
@@ -25,4 +27,3 @@ public:
 
 }; //Size: 0x1058
 
-using TCharacterInstanceMap = std::map<DWORD, Entity*>;

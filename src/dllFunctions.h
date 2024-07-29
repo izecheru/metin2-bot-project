@@ -1,7 +1,9 @@
 #pragma once
 #include <Windows.h>
 
-namespace dllFunctions {
-		DWORD WINAPI ExitThread(LPVOID lpThreadParameter);
-		DWORD WINAPI MainThread(LPVOID lpThreadParameter);
-}
+class DllFunctions
+{
+public:
+		static DWORD WINAPI ExitThread(LPVOID lpThreadParameter);
+		static DWORD WINAPI MainThread(LPVOID lpThreadParameter);
+};

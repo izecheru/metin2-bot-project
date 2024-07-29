@@ -1,31 +1,34 @@
 #pragma once
 #include <Windows.h>
 
-#include "dllFunctions.h"
-#include "data.h"
-#include "patch.h"
-#include "gui.h"
 #include "../ext/detours/detours.h"
-// ui drawing
-#include <dinput.h>
-#pragma comment(lib, "Dinput8.lib")
-#pragma comment(lib, "Dxguid.lib")
+#include "../ext/directx/Include/d3d9.h"
+#include "../ext/directx/Include/dinput.h"
+#include "data.h"
+#include "dllFunctions.h"
+#include "gui.h"
 
 using WndProc_t = LRESULT(CALLBACK*)(HWND, UINT, WPARAM, LPARAM);
 using GetDeviceState_t = HRESULT(__stdcall*)(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
 using GetDeviceData_t = HRESULT(__stdcall*)(IDirectInputDevice8*, DWORD, LPDIDEVICEOBJECTDATA, LPDWORD, DWORD);
 using EndScene_t = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
 using Reset_t = HRESULT(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+using ToHookSendPacket_t = char(__fastcall*)(int, int, unsigned int, long** a3);
+using SendUseItemPacket_t = char(__thiscall*)(void*, uint16_t);
 
-class Hook {
+class Hook
+{
 private:
-		static inline FILE* fp = nullptr;
 		static inline void** deviceTable;
 		static inline void** inputDeviceTable;
 
 public:
-		// just for packet send reading
-		static char __fastcall hkSendPacket(int a1, int ebx, unsigned int a2, long** a3);
+		static inline ToHookSendPacket_t pSendPacket = nullptr;
+		static inline ToHookSendPacket_t oSendPacket = nullptr;
+
+		static inline SendUseItemPacket_t pSendUseItemPacket = nullptr;
+		static inline char __fastcall hkSendPacket(int pThis, int ebx, unsigned int a2, long** a3);
+		static inline char __stdcall hkSendUseItemPacket(void* pThis, uint16_t  itemPos);
 
 		// gui related hooks
 		static inline EndScene_t pEndScene = nullptr;

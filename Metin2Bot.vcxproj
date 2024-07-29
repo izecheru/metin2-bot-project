@@ -33,7 +33,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,6 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,6 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -217,14 +219,12 @@
     <ClInclude Include="ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="ext\imgui\imstb_textedit.h" />
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\cheatVars.h" />
     <ClInclude Include="src\data.h" />
     <ClInclude Include="src\dllFunctions.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\gameFunctions.h" />
     <ClInclude Include="src\init.h" />
-    <ClInclude Include="src\patch.h" />
-    <ClInclude Include="src\pointers.h" />
+    <ClInclude Include="src\classPointers.h" />
     <ClInclude Include="src\signature.h" />
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hook.h" />
@@ -286,7 +286,6 @@
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hook.cpp" />
     <ClCompile Include="src\init.cpp" />
-    <ClCompile Include="src\patch.cpp" />
     <ClCompile Include="src\pointers.cpp" />
     <ClCompile Include="src\scanner.cpp" />
   </ItemGroup>

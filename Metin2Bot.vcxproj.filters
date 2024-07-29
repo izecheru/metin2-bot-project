@@ -273,7 +273,7 @@
     <ClInclude Include="src\signature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\pointers.h">
+    <ClInclude Include="src\classPointers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dllFunctions.h">
@@ -292,12 +292,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\patch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cheatVars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ext\detours\detours.h">
@@ -409,9 +403,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\init.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\patch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

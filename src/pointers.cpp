@@ -1,15 +1,17 @@
-#include "pointers.h"
-#include "signature.h"
+#include "classPointers.h"
 #include "scanner.h"
+#include "signature.h"
 
-void Pointer::Init() {
-		CPythonCharacterManager = Scanner::FindClass(elaris::CPyhtonCharacterManager);
-		CPythonNetworkStream = Scanner::FindClass(elaris::CPythonNetworkStream);
-		CPythonBackground = Scanner::FindClass(elaris::CPyhtonBackground);
-		CFlyingManager = Scanner::FindClass(elaris::CFlyingManager);
-		CPythonMiniMap = Scanner::FindClass(elaris::CPyhtonMiniMap);
-		CPythonPlayer = Scanner::FindClass(elaris::CPythonPlayer);
-		CRaceManager = Scanner::FindClass(elaris::CRaceManager);
-		CItemManager = Scanner::FindClass(elaris::CItemManager);
-		CPythonItem = Scanner::FindClass(elaris::CPythonItem);
+void ClassPointers::Init()
+{
+		CPythonCharacterManager = Scanner::FindClass(Elaris::CPyhtonCharacterManager);
+		CPythonNetworkStream = Scanner::FindClass(Elaris::CPythonNetworkStream);
+		CPythonBackground = Scanner::FindClass(Elaris::CPyhtonBackground);
+		CFlyingManager = Scanner::FindClass(Elaris::CFlyingManager);
+		CPythonMiniMap = Scanner::FindClass(Elaris::CPyhtonMiniMap);
+		CPythonPlayer = Scanner::FindClass(Elaris::CPythonPlayer);
+		CRaceManager = Scanner::FindClass(Elaris::CRaceManager);
+		CItemManager = Scanner::FindClass(Elaris::CItemManager);
+		CPythonItem = Scanner::FindClass(Elaris::CPythonItem);
+		CInstanceBase = Scanner::FindClass(Elaris::CInstanceBase);
 }

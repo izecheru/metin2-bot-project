@@ -1,21 +1,13 @@
 #pragma once
-#include <Windows.h>
-#include "pointers.h"
-#include "singleton.h"
-#include "gameFunctions.h"
+#include "classPointers.h"
 #include "entity.h"
-// directx
-#include "../ext/directx/Include/d3d9.h"
-#include "../ext/directx/Include/d3dx9.h"
+#include "gameFunctions.h"
+#include "singleton.h"
+#include <Windows.h>
 
 
-// imgui
-#include "../ext/imgui/imgui.h"
-#include "../ext/imgui/imgui_impl_dx9.h"
-#include "../ext/imgui/imgui_impl_win32.h"
-
-
-class Gui {
+class Gui
+{
 		inline static bool showMenu;
 		inline static bool showCoords;
 		inline static bool InitImGui;
@@ -25,8 +17,6 @@ class Gui {
 		inline static bool canResize;
 		inline static bool showInstanceDetails;
 		inline static bool entitiesInit;
-		inline static TCharacterInstanceMap entities;
-		inline static Entity* ent;
 		inline static bool showCInstanceBase;
 		inline static bool canUseSkill;
 		inline static bool guiInit;

@@ -1,25 +1,24 @@
+#include "classPointers.h"
 #include "gameFunctions.h"
 #include "scanner.h"
-#include "pointers.h"
 
-void GameFunc::Init() {
-		UseSkill = Scanner::FindFunction<UseSkill_t>(elaris::SendUseSkill);
-		DropItem = Scanner::FindFunction<SendItemDropPacket_t>(elaris::SendItemDropPacket);
-		SetAutoAttackTarget = Scanner::FindFunction<SetAutoAttackTarget_t>(elaris::SetAutoAttackTarget);
-		GetMainInstancePtr = Scanner::FindFunction<GetMainInstancePtr_t>(elaris::GetMainInstancePtr);
-		CanUseSkill = Scanner::FindFunction<CanUseSkill_t>(elaris::CanUseSkill);
-		SendPacket = Scanner::FindFunction<SendPacket_t>(elaris::SendPacket);
+void GameFunction::Init()
+{
+		UseSkill = Scanner::FindFunction<UseSkill_t>(Elaris::SendUseSkill);
+		DropItem = Scanner::FindFunction<SendItemDropPacket_t>(Elaris::SendItemDropPacket);
+		SetAutoAttackTarget = Scanner::FindFunction<SetAutoAttackTarget_t>(Elaris::SetAutoAttackTarget);
+		GetMainInstancePtr = Scanner::FindFunction<GetMainInstancePtr_t>(Elaris::GetMainInstancePtr);
+		CanUseSkill = Scanner::FindFunction<CanUseSkill_t>(Elaris::CanUseSkill);
+		SendPacket = Scanner::FindFunction<SendPacket_t>(Elaris::SendPacket);
+		pSendItemUsePacket = Scanner::FindFunction<SendItemUsePacket_t>(Elaris::SendItemUsePacket);
+		//RecvPacket = Scanner::FindFunction<RecvPacket_t>(Elaris::RecvPacket);
 }
 
-TCharacterInstanceMap* GameFunc::GetEntities() {
-		// Assuming Pointer::CPythonCharacterManager is the base address of CPythonCharacterManager structure
-		DWORD* characterManagerPtr = *reinterpret_cast<DWORD**>(Pointer::CPythonCharacterManager);
-
-		// Assuming CInstanceBase is at offset 0xC from CPythonCharacterManager
-		DWORD* instanceBasePtr = reinterpret_cast<DWORD*>(characterManagerPtr + 0x14);
-
-		// Assuming TCharacterInstanceMap is at offset 0x8 from CInstanceBase
-		TCharacterInstanceMap* entitiesMap = reinterpret_cast<TCharacterInstanceMap*>(instanceBasePtr + 0x8);
-
-		return entitiesMap;
+void GameFunction::SendItemUsePacket(int itemPos)
+{
+		// first is 1
+		// second is 257
+		// third is 513
+		int element = 1 + (itemPos - 1) * 256;
+		pSendItemUsePacket(*(void**)ClassPointers::CPythonNetworkStream, element);
 }

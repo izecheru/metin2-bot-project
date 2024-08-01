@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
-namespace Data {
+namespace Data
+{
 		inline HMODULE g_hModule;
 		inline HWND window;
 }

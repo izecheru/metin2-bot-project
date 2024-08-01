@@ -1,23 +1,27 @@
+#include "classPointers.h"
+#include "gameFunctions.h"
+#include "hook.h"
 #include "init.h"
-void init::InitHack() {
-		InitFuncs();
-		InitPointers();
-		InitHooks();
-		InitGui();
+
+void Init::InitHack() {
+	InitFuncs();
+	InitPointers();
+	InitHooks();
+	InitGui();
 }
 
-void init::InitFuncs() {
-		GameFunc::Init();
+void Init::InitFuncs() {
+	GameFunction::Init();
 }
 
-void init::InitHooks() {
-		Hook::Init();
+void Init::InitHooks() {
+	Hook::Init();
 }
 
-void init::InitPointers() {
-		Pointer::Init();
+void Init::InitPointers() {
+	ClassPointers::Init();
 }
 
-void init::InitGui() {
-		Gui::Init();
+void Init::InitGui() {
+	Gui::Init();
 }

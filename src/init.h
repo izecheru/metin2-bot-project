@@ -1,12 +1,14 @@
 #pragma once
-#include "hook.h"
-#include "pointers.h"
-#include "gameFunctions.h"
-namespace init {
-		void InitHack();
 
-		inline void InitGui();
-		inline void InitHooks();
-		inline void InitFuncs();
-		inline void InitPointers();
-}
+class Init {
+public:
+	static void InitHack();
+
+	static inline void InitGui();
+
+	static inline void InitHooks();
+
+	static inline void InitFuncs();
+
+	static inline void InitPointers();
+};

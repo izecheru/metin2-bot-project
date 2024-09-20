@@ -1,37 +1,41 @@
 #pragma once
 #include "entity.h"
-#include <vector>
 #include <Windows.h>
+#include <vector>
 
-using SendItemDropPacket_t = bool(__thiscall*)(void*, int index, int quantity);
-using SetAutoAttackTarget_t = int(__thiscall*)(void*, int targetVID);
-using GetMainInstancePtr_t = Entity * (__thiscall*)(void*);
-using CanUseSkill_t = bool(__thiscall*)(void*);
-using RecvPacket_t = char(__fastcall*)(int pThis, int ebx, unsigned int size, long** buffer);
-using SendPacket_t = char(__thiscall*)(void* pthis, unsigned int size, std::vector<BYTE> buffer);
+using SetAutoAttackTarget_t = int(__thiscall *)(void *, int targetVID);
 
 // those functions work
-using UseSkill_t = bool(__thiscall*)(void*, int index, int target);
-using SendItemUsePacket_t = char(__thiscall*)(void* pCNetwork, int itemPos);
-using SendShopSellPacket_t = char(__thiscall*)(void* pCNetwork, char slot);
+using SendDropItemPacket_t = char(__thiscall *)(void *pCNetwork, int itemPos,
+                                                int zero, int amount);
+using SendUseSkillPacket_t = bool(__thiscall *)(void *, int index, int target);
 
-namespace GameFunction
-{
-		/// Initialize the function pointers
-		void Init();
+using SendUseItemPacket_t = char(__thiscall *)(void *pCNetwork, int itemPos);
 
-		inline  SendItemUsePacket_t pSendItemUsePacket;
-		inline  SendShopSellPacket_t pSendShopSellPacket;
+using SendMoveItemPacket_t = char(__thiscall *)(void *pCNetwork, int fromPos,
+                                                int toPos, int amount);
 
+namespace GameFunction {
+/// Initialize the function pointers
+void Init();
 
-		inline  SendPacket_t SendPacket;
-		inline  RecvPacket_t RecvPacket;
-		inline  UseSkill_t UseSkill;
-		inline  SendItemDropPacket_t DropItem;
-		inline  SetAutoAttackTarget_t SetAutoAttackTarget;
-		inline  GetMainInstancePtr_t GetMainInstancePtr;
-		inline  CanUseSkill_t CanUseSkill;
+inline SendUseItemPacket_t pSendUseItemPacket;
+inline SendDropItemPacket_t pSendDropItemPacket;
+inline SendMoveItemPacket_t pSendMoveItemPacket;
 
-		void SendItemUsePacket(int itemPos);
-		void SendShopSellPacket(char itemPos);
-};
+/// Uses the item specified by the index provided as parameter
+void SendItemUsePacket(int itemPos);
+
+/// Not tied to selling things to the npc, must dig more
+
+/// Drops the item specified by the item pos parameter, this function also takes
+/// quantity parameter
+void SendDropItemPacket(int itemPos, int zero, int amount);
+
+/// <summary>
+/// Moves an item from a slot to another
+/// </summary>
+/// <param name="from"> The slot we take the item from</param>
+/// <param name="to"> The slot we take the item to</param>
+void SendMoveItemPacket(int from, int to, int amount);
+}; // namespace GameFunction

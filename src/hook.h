@@ -1,9 +1,14 @@
 #pragma once
 #include <Windows.h>
+#include <iostream>
 
 #include "../ext/detours/detours.h"
 #include "../ext/directx/Include/d3d9.h"
 #include "../ext/directx/Include/dinput.h"
+
+#include "../ext/imgui/imgui_impl_dx9.h"
+#include "../ext/imgui/imgui_impl_win32.h"
+
 #include "data.h"
 #include "dllFunctions.h"
 #include "gui.h"
@@ -17,14 +22,10 @@ using ToHookSendPacket_t = char(__fastcall*)(int, int, unsigned int, long** a3);
 
 namespace Hook
 {
+		inline FILE* fConsole = nullptr;
+
 		inline void** deviceTable;
 		inline void** inputDeviceTable;
-
-		inline ToHookSendPacket_t pSendPacket = nullptr;
-		inline ToHookSendPacket_t oSendPacket = nullptr;
-
-
-		inline char __fastcall hkSendPacket(int pThis, int ebx, unsigned int a2, long** a3);
 
 		// gui related hooks
 		inline EndScene_t pEndScene = nullptr;
@@ -39,12 +40,15 @@ namespace Hook
 
 		HRESULT __stdcall EndScene(IDirect3DDevice9* pDevice);
 
-		HRESULT __stdcall Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params);
+		HRESULT __stdcall Reset(IDirect3DDevice9* pDevice,
+														D3DPRESENT_PARAMETERS* params);
 
-		HRESULT __stdcall GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData, LPVOID lpvData);
+		HRESULT __stdcall GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
+																		 LPVOID lpvData);
 
-		HRESULT __stdcall GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod,
-																		LPDWORD pdwInOut, DWORD dwFlags);
+		HRESULT __stdcall GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData,
+																		LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut,
+																		DWORD dwFlags);
 
 		LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -55,4 +59,4 @@ namespace Hook
 		bool GetD3D9Device();
 
 		bool GetD3D9InputDevice();
-};
+}; // namespace Hook

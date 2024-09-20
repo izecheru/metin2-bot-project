@@ -1,5 +1,5 @@
-#include "data.h"
 #include "dllFunctions.h"
+#include "data.h"
 #include "hook.h"
 #include "init.h"
 
@@ -12,7 +12,8 @@ DWORD WINAPI DllFunctions::ExitThread(const LPVOID lpThreadParameter)
 
 DWORD WINAPI DllFunctions::MainThread(const LPVOID lpThreadParameter)
 {
-		if (Data::g_hModule == nullptr) Data::g_hModule = HMODULE(lpThreadParameter);
+		if (Data::g_hModule == nullptr)
+				Data::g_hModule = HMODULE(lpThreadParameter);
 		Init::InitHack();
 		return TRUE;
 }

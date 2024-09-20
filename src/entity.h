@@ -1,26 +1,30 @@
 #pragma once
+#include "utils.h"
+#include <Windows.h>
 #include <map>
+#include <mutex>
+#include <vector>
 
+namespace Entity {
 struct Vector3 {
-	float x;
-	float y;
-	float z;
+  float x, y, z;
 };
 
-#define CHECK_BAD_PTR(x) if(IsBadReadPtr(this,sizeof(x))) return nullptr
-#define CHECK_BAD(x) if(IsBadReadPtr(this, sizeof(x))) return
-#define CHECK_BAD_NUM(x) if(IsBadReadPtr(this, sizeof(x))) return 0
-#define CHECK_BAD_VEC3(x) if(IsBadReadPtr(this, sizeof(x))) return Vector3{0,0,0}
-
-class Entity {
+class Mob {
 public:
-	char pad_0000[32]; //0x0000
-	char name[20]; //0x0020
-	char pad_0034[464]; //0x0034
-	Vector3 position; //0x0204
-	char pad_0210[1144]; //0x0210
-	int32_t attackStance; //0x0688
-	char pad_068C[2508]; //0x068C
-}; //Size: 0x1058
+  char pad_0000[96];   // 0x0000
+  char entityName[20]; // 0x0060 something else
+  char pad_0074[4];    // 0x0074
+  int32_t vid;         // 0x0078
+  char pad_007C[68];   // 0x007C
+  int32_t level;       // 0x00C0
+  char pad_00C4[680];  // 0x00C4
+  float fRot;          // 0x036C
+  char pad_0370[24];   // 0x0370
+  Vector3 location;    // 0x0388
+  char pad_0394[3008]; // 0x0394
+}; // Size: 0x0F54
 
-using TCharacterInstanceMap = std::map<DWORD, Entity *>;
+inline std::vector<Mob> entityList;
+inline std::mutex entityListMutex; // Mutex to protect vector operations
+} // namespace Entity

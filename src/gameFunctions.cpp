@@ -1,31 +1,54 @@
-#include "classPointers.h"
 #include "gameFunctions.h"
+#include "gamePointers.h"
 #include "scanner.h"
+#include "signature.h"
+#include "utils.h"
 
 void GameFunction::Init()
 {
-		UseSkill = Scanner::FindFunction<UseSkill_t>(Elaris::SendUseSkill);
-		DropItem = Scanner::FindFunction<SendItemDropPacket_t>(Elaris::SendItemDropPacket);
-		SetAutoAttackTarget = Scanner::FindFunction<SetAutoAttackTarget_t>(Elaris::SetAutoAttackTarget);
-		GetMainInstancePtr = Scanner::FindFunction<GetMainInstancePtr_t>(Elaris::GetMainInstancePtr);
-		CanUseSkill = Scanner::FindFunction<CanUseSkill_t>(Elaris::CanUseSkill);
-		SendPacket = Scanner::FindFunction<SendPacket_t>(Elaris::SendPacket);
-		pSendItemUsePacket = Scanner::FindFunction<SendItemUsePacket_t>(Elaris::SendItemUsePacket);
-		pSendShopSellPacket = Scanner::FindFunction<SendShopSellPacket_t>(Elaris::SendShopSellPacket);
-		//RecvPacket = Scanner::FindFunction<RecvPacket_t>(Elaris::RecvPacket);
+		void* base = GetModuleHandle(0);
+		pSendDropItemPacket = reinterpret_cast<SendDropItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendDropItemPacket.signature));
+		pSendUseItemPacket = reinterpret_cast<SendUseItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendUseItemPacket.signature));
+		pSendMoveItemPacket = reinterpret_cast<SendMoveItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendMoveItemPacket.signature));
 }
 
 void GameFunction::SendItemUsePacket(int itemPos)
 {
+		if (Utils::CheckIfNullptr(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream)))
+				return;
+
 		// first is 1
 		// second is 257
 		// third is 513
 		// so A of n is 1 + ( n - 1) * 256
-		int element = 1 + (itemPos - 1) * 256;
-		pSendItemUsePacket(*(void**) ClassPointers::CPythonNetworkStream, element);
+		const int element = 1 + (itemPos - 1) * 256;
+		pSendUseItemPacket(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream), element);
 }
 
-void GameFunction::SendShopSellPacket(char itemPos)
+void GameFunction::SendDropItemPacket(int itemPos, int zero, int amount)
 {
-		pSendShopSellPacket(*(void**) ClassPointers::CPythonNetworkStream, itemPos);
+		if (Utils::CheckIfNullptr(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream)))
+				return;
+
+		// from third to fifth
+		for (int inventory = 2; inventory <= 4; inventory++)
+		{
+				for (int slot = 1; slot <= 45; slot++)
+				{
+						int itemSlot = inventory * 45 + slot;
+
+						// Calculate the item position based on the formula
+						int itemPosition = 1 + (itemSlot - 1) * 256;
+						pSendDropItemPacket(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream), itemPosition, 0, 1);
+						Sleep(300);
+				}
+		}
+}
+
+void GameFunction::SendMoveItemPacket(int from, int to, int amount)
+{
+		if (Utils::CheckIfNullptr(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream)))
+				return;
+
+		pSendMoveItemPacket(*reinterpret_cast<void**>(GamePointers::CPythonNetworkStream), 1 + (from - 1) * 256, 1 + (to - 1) * 256, amount);
 }

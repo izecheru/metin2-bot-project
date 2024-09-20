@@ -1,6 +1,6 @@
-#include "../ext/imgui/imgui.h"
-#include "gameFunctions.h"
 #include "gui.h"
+#include "../ext/imgui/imgui.h"
+#include "gamePointers.h"
 
 void Gui::Init()
 {
@@ -16,7 +16,7 @@ void Gui::Init()
 		showCInstanceBase = false;
 		canUseSkill = false;
 		applyMetinSlider = false;
-		showCoords = false;
+		showValue = false;
 }
 
 /// <summary>
@@ -25,9 +25,12 @@ void Gui::Init()
 /// </summary>
 void Gui::RenderCoordWindow()
 {
-		ImGui::Begin("window 1", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+		ImGui::Begin("window 1", nullptr,
+								 ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |
+								 ImGuiWindowFlags_NoResize);
 		ImGui::SetWindowPos(ImVec2(100, 10));
 		ImGui::SetWindowSize(ImVec2(250, 49));
+
 		if (ImGui::GetIO().WantCaptureMouse == true)
 		{
 				ImGui::GetIO().MouseDrawCursor = true;
@@ -45,14 +48,18 @@ void Gui::RenderMenu()
 {
 		ImGui::Begin("Metin bot", nullptr, ImGuiWindowFlags_NoDecoration);
 		ImGui::SetWindowSize(ImVec2(500, 500));
-		if (ImGui::BeginTabBar("tabs"))
+		if (ImGui::BeginTabBar("Tabs"))
 		{
 				if (ImGui::BeginTabItem("Pointers addresses"))
 				{
-						if (ImGui::Button("Test function"))
-						{
-							GameFunction::SendItemUsePacket(1);
-						}
+						ImGui::Text("CPythonNetworkStream  = %04x",
+												GamePointers::CPythonNetworkStream);
+						ImGui::Text("CPythonCharacterManager = %04x",
+												GamePointers::CPythonCharacterManager);
+
+						ImGui::Text("num of entitites -> %d",
+												GamePointers::kaliveInstanceMap.size());
+
 						ImGui::EndTabItem();
 				}
 				ImGui::EndTabBar();
@@ -65,72 +72,30 @@ void Gui::RenderVariable(const int value, const char* variableName)
 		ImGui::Text("%s - %p", variableName, value);
 }
 
-bool Gui::IsShowMenu()
-{
-		return showMenu == true;
-}
+bool Gui::IsShowMenu() { return showMenu == true; }
 
-bool Gui::IsDetach()
-{
-		return toDetach == true;
-}
+bool Gui::IsDetach() { return toDetach == true; }
 
-bool Gui::IsImGuiInit()
-{
-		return InitImGui == true;
-}
+bool Gui::IsImGuiInit() { return InitImGui == true; }
 
-bool Gui::IsMouseBlocked()
-{
-		return blockMouse == true;
-}
+bool Gui::IsMouseBlocked() { return blockMouse == true; }
 
-bool Gui::IsKeyboardBlocked()
-{
-		return blockKeyboard == true;
-}
+bool Gui::IsKeyboardBlocked() { return blockKeyboard == true; }
 
-bool Gui::CanResize()
-{
-		return canResize == true;
-}
+bool Gui::CanResize() { return canResize == true; }
 
-void Gui::FlipMenu()
-{
-		showMenu = !showMenu;
-}
+void Gui::FlipMenu() { showMenu = !showMenu; }
 
-void Gui::FlipDetach()
-{
-		toDetach = !toDetach;
-}
+void Gui::FlipDetach() { toDetach = !toDetach; }
 
-void Gui::FlipBlockMouse()
-{
-		blockMouse = !blockMouse;
-}
+void Gui::FlipBlockMouse() { blockMouse = !blockMouse; }
 
-void Gui::FlipBlockKeyboard()
-{
-		blockKeyboard = !blockKeyboard;
-}
+void Gui::FlipBlockKeyboard() { blockKeyboard = !blockKeyboard; }
 
-void Gui::FlipCanResize()
-{
-		canResize = !canResize;
-}
+void Gui::FlipCanResize() { canResize = !canResize; }
 
-void Gui::FlipImGui()
-{
-		InitImGui = true;
-}
+void Gui::FlipImGui() { InitImGui = true; }
 
-bool Gui::IsShowCoords()
-{
-		return showCoords == true;
-}
+bool Gui::IsShowCoords() { return showValue == true; }
 
-void Gui::FlipShowCoords()
-{
-		showCoords = !showCoords;
-}
+void Gui::FlipShowCoords() { showValue = !showValue; }

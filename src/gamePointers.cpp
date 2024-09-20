@@ -1,0 +1,16 @@
+#include "gamePointers.h"
+#include "scanner.h"
+#include "signature.h"
+
+void GamePointers::Init() {
+    void *base = GetModuleHandle(0);
+    CPythonNetworkStream = *reinterpret_cast<uintptr_t *>(
+        Scanner::PatternScan(
+            base, Signature::Calliope::CPythonNetworkStream.signature) +
+        0x2);
+    CPythonCharacterManager = CPythonNetworkStream + 0x20;
+    testPtr = *reinterpret_cast<uintptr_t *>(
+        Scanner::PatternScan(base, Signature::Calliope::InstanceMap.signature) +
+        0x2);
+    kaliveInstanceMap = *reinterpret_cast<TCharacterInstanceMap *>(testPtr);
+}

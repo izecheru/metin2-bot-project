@@ -1,86 +1,127 @@
 #pragma once
+
 #include <Windows.h>
+#include <map>
+#include <string>
 
-struct OffsetSig
-{
-		const char* pattern = nullptr;
-		const char* mask = nullptr;
-		BYTE        offset = 0;
+namespace Signature {
+struct OffsetSig {
+  const char *signature = nullptr;
+  BYTE offset = 0;
 
-		OffsetSig(const char* p, const char* m, const BYTE off)
-		{
-				pattern = p;
-				mask = m;
-				offset = off;
-		}
+  OffsetSig(const char *sig, const BYTE off) {
+    offset = off;
+    signature = sig;
+  }
 };
 
-struct Sig
-{
-		const char* pattern;
-		const char* mask;
-
-		Sig(const char* p, const char* m)
-		{
-				pattern = p;
-				mask = m;
-		}
+struct Sig {
+  const char *signature = nullptr;
+  Sig(const char *sig) { signature = sig; }
 };
 
-namespace Elaris
-{
-		inline auto SendShopSellPacket =
-				Sig("\x55\x8B\xEC\x51\x56\x8B\xF1\xE8\x00\x00\x00\x00\x84\xC0\x75\x00\xB0\x00\x5E\x8B\xE5\x5D\xC2\x00\x00\x8D\x45\x00\x66\xC7\x45\x00\x00\x00\x50\x6A\x00\x8B\xCE\xE8\x00\x00\x00\x00\x84\xC0\x75\x00\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x83\xC4\x00\x32\xC0\x5E\x8B\xE5\x5D\xC2\x00\x00\x8D\x45\x00\x8B\xCE\x50\x6A\x00\xE8\x00\x00\x00\x00\x84\xC0\x75\x00\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x83\xC4\x00\x32\xC0\x5E\x8B\xE5\x5D\xC2\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x5E\x8B\xE5\x5D\xC2\x00\x00\xCC\xCC\xCC\xCC\xCC\x55\x8B\xEC\x51"
-						, "xxxxxxxx????xxx?x?xxxxx??xx?xxx???xx?xxx????xxx?x????x????xx?xxxxxxx??xx?xxxx?x????xxx?x????x????xx?xxxxxxx??xxx????xxxxx??xxxxxxxxx");
+inline auto PythonModules = Sig("68 ?? ?? ?? ?? 6A 00 6A 00 68 ?? ?? ?? ?? 68");
 
+namespace Calliope {
+inline auto InstanceMap =
+    OffsetSig("C7 05 ? ? ? ? ? ? ? ? C7 05 ? ? ? ? ? ? ? ? E8 ? ? ? ? 68 ? ? ? "
+              "? E8 ? ? ? ? 83 C4 ? 8B 0D",
+              0x1);
 
-		inline auto PatchMetinAutofarm = Sig("\x83\xF8\x00\x72\x00\x8B\x35", "xx?x?xx");
-		inline auto CPyhtonMiniMap = OffsetSig("\x8B\x0D\x00\x00\x00\x00\x8B\x3D\x00\x00\x00\x00\x75",
-																					 "xx????xx????x", 0x2);
-		inline auto CPyhtonBackground = OffsetSig("\x8B\x3D\x00\x00\x00\x00\x75", "xx????x", 0x2);
-		inline auto CInstanceBase = OffsetSig("\x8B\xCF\xE8\x00\x00\x00\x00\x85\xC0\x75\x00\x68",
-																					"xxx????xxx?x", 0x2);
-		inline auto CPythonPlayer = OffsetSig(
-				"\x8B\x0D\x00\x00\x00\x00\x6A\x00\x68\x00\x00\x00\x00\x6A\x00\xE8",
-				"xx????x?x????x?x", 0x2);
-		inline auto CItemManager = OffsetSig(
-				"\x8B\x0D\x00\x00\x00\x00\x50\xE8\x00\x00\x00\x00\x85\xC0\x74\x00\x56",
-				"xx????xx????xxx?x", 0x2);
-		inline auto CPythonItem = OffsetSig("\x8B\x35\x00\x00\x00\x00\x8D\x45\x00\x57\x8B\x7D", "xx????xx?xxx",
-																				0x2);
-		inline auto CFlyingManager = OffsetSig("\x8B\x3D\x00\x00\x00\x00\xA1\x00\x00\x00\x00\xF3\x0F\x10\x05",
-																					 "xx????x????xxxx", 0x2);
-		inline auto CRaceManager = OffsetSig(
-				"\x8B\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\xF8\x85\xFF\x75\x00\x32\xC0",
-				"xx????x????xxxxx?xx", 0x2);
-		inline auto CPyhtonCharacterManager = OffsetSig("\x8B\x3D\x00\x00\x00\x00\x8B\x47\x00\x8D\x4F",
-																										"xx????xx?xx", 0x2);
-		inline auto CPythonNetworkStream = OffsetSig(
-				"\x8B\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x5E\x8B\xE5\x5D\xC3\xCC\xCC\xCC\x55\x8B\xEC\x51",
-				"xx????x????x????xxxxxxxxxxxx", 0x2);
+inline auto CPythonCharacterManager = OffsetSig(
+    "8B 0D ?? ?? ?? ?? FF 75 ?? 83 C1 ?? 8B 01 FF 50 ?? 8B F0 89 75", 0x2);
+inline auto CPythonNetworkStream = OffsetSig("8B 0D ?? ?? ?? ?? 50 FF B3", 0x2);
+inline std::map<std::string, OffsetSig> mappedClassSignatures = {
+    {"CPythonCharacterManager", CPythonCharacterManager},
+    {"CPythonNetworkStream", CPythonNetworkStream}};
 
-		// function signatures
-		inline const auto SendPacket = Sig("\x55\x8B\xEC\x56\x8B\xF1\x57\x8B\x7D\x00\x8B\x56", "xxxxxxxxx?xx");
-		inline auto       SendUseSkill = Sig(
-				"\x55\x8B\xEC\x83\xEC\x00\xA1\x00\x00\x00\x00\x33\xC5\x89\x45\x00\x8B\x45\x00\x89\x45\x00\x8B\x45\x00\x56",
-				"xxxxx?x????xxxx?xx?xx?xx?x");
-		inline auto CanUseSkill = Sig(
-				"\xE8\x00\x00\x00\x00\x84\xC0\x74\x00\xE8\x00\x00\x00\x00\x83\xF8\x00\x0F\x97\xC0",
-				"x????xxx?x????xx?xxx");
-		inline auto GetMainInstancePtr = Sig(
-				"\x8B\x41\x00\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\x55\x8B\xEC\x81\xEC",
-				"xx?xxxxxxxxxxxxxxxxxx");
-		inline auto SetAutoAttackTarget = Sig(
-				"\x55\x8B\xEC\x8B\x45\x00\x89\x41\x00\x5D\xC2\x00\x00\xCC\xCC\xCC\x55\x8B\xEC\x83\xEC\x00\x53\x56\x8B\xF1",
-				"xxxxx?xx?xx??xxxxxxxx?xxxx");
+inline auto SendUseSkillPacket = Sig("55 8B EC 83 EC ?? A1 ?? ?? ?? ?? 33 C5 "
+                                     "89 45 ?? 8B 45 ?? 89 45 ?? 8B 45 ?? 56");
+inline auto SendUseItemPacket =
+    Sig("55 8B EC 51 56 8B F1 E8 ?? ?? ?? ?? 84 C0 74 ?? 66 8B 45");
+inline auto SendDropItemPacket =
+    Sig("55 8B EC 83 EC ?? 56 8B F1 E8 ?? ?? ?? ?? 84 C0 75 ?? B0 ?? 5E 8B E5 "
+        "5D C2 ?? ?? 66 8B 45 ?? 8B CE 66 89 45 ?? 8A 45 ?? 88 45 ?? 8B 45 ?? "
+        "89 45 ?? 8B 45");
+inline auto SendMoveItemPacket = Sig("55 8B EC 83 EC ?? 53 56 57 8B F1 E8");
+inline auto CreateInstance = Sig("55 8B EC 83 E4 ?? 51 53 56 8B 75");
 
-		inline auto SendItemDropPacket = Sig(
-				"\x55\x8B\xEC\x83\xEC\x00\x56\x8B\xF1\xE8\x00\x00\x00\x00\x84\xC0\x75\x00\xB0\x00\x5E\x8B\xE5\x5D\xC2\x00\x00\x66\x8B\x45\x00\x8B\xCE\x66\x89\x45\x00\x8A\x45\x00\x88\x45\x00\x8B\x45\x00\x89\x45\x00\x8D\x45",
-				"xxxxx?xxxx????xxx?x?xxxxx??xxx?xxxxx?xx?xx?xx?xx?xx");
-		inline auto RecvPacket = Sig(
-				"\x55\x8B\xEC\x5D\xE9\x00\x00\x00\x00\xCC\xCC\xCC\xCC\xCC\xCC\xCC\x55\x8B\xEC\x56\x8B\xF1\x57",
-				"xxxxx????xxxxxxxxxxxxxx");
-		inline auto SendItemUsePacket = Sig(
-				"\x55\x8B\xEC\x51\x56\x8B\xF1\xE8\x00\x00\x00\x00\x84\xC0\x74\x00\x66\x8B\x45",
-				"xxxxxxxx????xxx?xxx");
+inline std::map<std::string, Sig> mappedFunctionSignatures = {
+    {"SendUseSkillPacket", SendUseSkillPacket},
+    {"SendUseItemPacket", SendUseItemPacket},
 };
+} // namespace Calliope
+
+namespace Elaris {
+inline auto CPyhtonMiniMap =
+    OffsetSig("8B 0D ?? ?? ?? ?? 8B 3D ?? ?? ?? ?? 75", 0x2);
+inline auto CPyhtonBackground = OffsetSig("8B 3D ?? ?? ?? ?? 75", 0x2);
+inline auto CInstanceBase =
+    OffsetSig("8B CF E8 ?? ?? ?? ?? 85 C0 75 ?? 68", 0x2);
+inline auto CPythonPlayer =
+    OffsetSig("8B 0D ?? ?? ?? ?? 6A ?? 68 ?? ?? ?? ?? 6A ?? E8", 0x2);
+inline auto CItemManager =
+    OffsetSig("8B 0D ?? ?? ?? ?? 50 E8 ?? ?? ?? ?? 85 C0 74 ?? 56", 0x2);
+inline auto CPythonItem = OffsetSig("8B 35 ?? ?? ?? ?? 8D 45 ?? 57 8B 7D", 0x2);
+inline auto CFlyingManager =
+    OffsetSig("8B 3D ?? ?? ?? ?? A1 ?? ?? ?? ?? F3 0F 10 05", 0x2);
+inline auto CRaceManager =
+    OffsetSig("8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 8B F8 85 FF 75 ?? 32 C0", 0x2);
+inline auto CPyhtonCharacterManager =
+    OffsetSig("8B 3D ?? ?? ?? ?? 8B 47 ?? 8D 4F", 0x2);
+inline auto CPythonNetworkStream =
+    OffsetSig("8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? E8 ?? ?? ?? ?? 5E 8B E5 5D C3 "
+              "CC CC CC 55 8B EC 51",
+              0x2);
+
+// Function signatures
+inline auto PatchMetinAutofarm = Sig("83 F8 ?? 72 ?? 8B 35");
+inline auto SendShopSellPacket =
+    Sig("55 8B EC 51 56 8B F1 E8 ?? ?? ?? ?? 84 C0 75 ?? B0 ?? 5E 8B E5 5D C2 "
+        "?? ?? 8D 45 ?? 66 C7 45 ?? ?? ?? 50 6A ?? 8B CE E8 ?? ?? ?? ?? 84 C0 "
+        "75 ?? 68 ?? ?? ?? ?? E8 ?? ?? ?? ?? 83 C4 ?? 32 C0 5E 8B E5 5D C2 ?? "
+        "?? 8D 45 ?? 8B CE 50 6A ?? E8 ?? ?? ?? ?? 84 C0 75 ?? 68 ?? ?? ?? ?? "
+        "E8 ?? ?? ?? ?? 83 C4 ?? 32 C0 5E 8B E5 5D C2 ?? ?? 8B CE E8 ?? ?? ?? "
+        "?? 5E 8B E5 5D C2 ?? ?? CC CC CC CC CC 55 8B EC 51");
+
+inline const auto SendPacket = Sig("55 8B EC 56 8B F1 57 8B 7D ?? 8B 56");
+inline auto SendUseSkill = Sig("55 8B EC 83 EC ?? A1 ?? ?? ?? ?? 33 C5 89 45 "
+                               "?? 8B 45 ?? 89 45 ?? 8B 45 ?? 56");
+inline auto CanUseSkill =
+    Sig("E8 ?? ?? ?? ?? 84 C0 74 ?? E8 ?? ?? ?? ?? 83 F8 ?? 0F 97 C0");
+inline auto GetMainInstancePtr =
+    Sig("8B 41 ?? C3 CC CC CC CC CC CC CC CC CC CC CC CC CC 55 8B EC 81 EC");
+inline auto SetAutoAttackTarget = Sig("55 8B EC 8B 45 ?? 89 41 ?? 5D C2 ?? ?? "
+                                      "CC CC CC 55 8B EC 83 EC ?? 53 56 8B F1");
+
+inline auto SendItemDropPacket =
+    Sig("55 8B EC 83 EC ?? 56 8B F1 E8 ?? ?? ?? ?? 84 C0 75 ?? B0 ?? 5E 8B E5 "
+        "5D C2 ?? ?? 66 8B 45 ?? 8B CE 66 89 45 ?? 8A 45 ?? 88 45 ?? 8B 45 ?? "
+        "89 45 ?? 8D 45");
+inline auto RecvPacket =
+    Sig("55 8B EC 5D E9 ?? ?? ?? ?? CC CC CC CC CC CC CC 55 8B EC 56 8B F1 57");
+inline auto SendItemUsePacket =
+    Sig("55 8B EC 51 56 8B F1 E8 ?? ?? ?? ?? 84 C0 74 ?? 66 8B 45");
+
+inline std::map<std::string, Sig> mappedFunctionSignatures = {
+    {"SendItemUsePacket", SendItemUsePacket},
+    {"RecvPacket", RecvPacket},
+    {"SendItemDropPacket", SendItemDropPacket},
+    {"SetAutoAttackTarget", SetAutoAttackTarget},
+    {"GetMainInstancePtr", GetMainInstancePtr},
+    {"CanUseSkill", CanUseSkill},
+    {"SendUseSkill", SendUseSkill},
+    {"SendPacket", SendPacket},
+    {"PatchMetinAutofarm", PatchMetinAutofarm}};
+
+inline std::map<std::string, OffsetSig> mappedClassSignatures = {
+    {"CPyhtonBackground", CPyhtonBackground},
+    {"CPythonPlayer", CPythonPlayer},
+    {"CItemManager", CItemManager},
+    {"CPythonItem", CPythonItem},
+    {"CFlyingManager", CFlyingManager},
+    {"CRaceManager", CRaceManager},
+    {"CPyhtonCharacterManager", CPyhtonCharacterManager},
+    {"CPythonNetworkStream", CPythonNetworkStream}};
+}; // namespace Elaris
+} // namespace Signature

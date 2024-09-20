@@ -1,31 +1,55 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.9.34607.119
+VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Metin2Bot", "Metin2Bot.vcxproj", "{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Metin2Bot", "Metin2Bot.vcxproj", "{CAB203DC-9D34-325D-B444-97DA3AB2A957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		MinSizeRel|Win32 = MinSizeRel|Win32
+		MinSizeRel|x64 = MinSizeRel|x64
+		MinSizeRel|x86 = MinSizeRel|x86
+		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		RelWithDebInfo|Win32 = RelWithDebInfo|Win32
+		RelWithDebInfo|x64 = RelWithDebInfo|x64
+		RelWithDebInfo|x86 = RelWithDebInfo|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Debug|x64.ActiveCfg = Debug|x64
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Debug|x64.Build.0 = Debug|x64
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Debug|x86.ActiveCfg = Debug|Win32
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Debug|x86.Build.0 = Debug|Win32
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Release|x64.ActiveCfg = Release|x64
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Release|x64.Build.0 = Release|x64
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Release|x86.ActiveCfg = Release|Win32
-		{61AAE6F4-0763-4FF7-B81D-7EB95EF6838F}.Release|x86.Build.0 = Release|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|Win32.Build.0 = Debug|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|x64.ActiveCfg = Debug|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|x64.Build.0 = Debug|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|x86.ActiveCfg = Debug|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Debug|x86.Build.0 = Debug|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|Win32.Build.0 = MinSizeRel|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|x86.ActiveCfg = MinSizeRel|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.MinSizeRel|x86.Build.0 = MinSizeRel|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|Win32.ActiveCfg = Release|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|Win32.Build.0 = Release|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|x64.ActiveCfg = Release|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|x64.Build.0 = Release|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|x86.ActiveCfg = Release|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.Release|x86.Build.0 = Release|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|Win32
+		{CAB203DC-9D34-325D-B444-97DA3AB2A957}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CAB86BC1-14DC-410C-BF73-51FA50A032AE}
+		SolutionGuid = {17FFA058-67DA-3C4B-82D4-2A80B7B64473}
 	EndGlobalSection
 EndGlobal

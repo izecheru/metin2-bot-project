@@ -1,14 +1,5 @@
 #include "hook.h"
 #include "scanner.h"
-#include <iomanip>
-#include <iostream>
-#include <Windows.h>
-
-#include "../ext/directx/include/dinput.h"
-#include "../ext/imgui/imgui_impl_dx9.h"
-#include "../ext/imgui/imgui_impl_win32.h"
-#include "classPointers.h"
-
 
 #define CONSOLE1
 #ifdef CONSOLE
@@ -17,26 +8,28 @@
 /// </summary>
 /// <param name="hModule">The handle to our process</param>
 static void console(LPVOID hModule)
-{ //console assignment
-
+{ // console assignment
 		if (AllocConsole())
 		{
-				freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout); //have to use freopen_s instead of freopen to get ride of the _CRT_SECURE_NO_WARNINGS message
-				freopen_s(reinterpret_cast<FILE**>(stdin), "CONIN$", "r", stdin);
-				freopen_s(reinterpret_cast<FILE**>(stderr), "CONOUT$", "w", stderr);
+				freopen_s(&Hook::fConsole, "CONOUT$", "w",
+									stdout); // have to use freopen_s instead of freopen to get
+				// ride of the _CRT_SECURE_NO_WARNINGS message
+				freopen_s(&Hook::fConsole, "CONIN$", "r", stdin);
+				freopen_s(&Hook::fConsole, "CONOUT$", "w", stderr);
 
 				AttachConsole(GetProcessId((hModule)));
 
 				SetConsoleTitle("My farm bot");
 
 				// disable close button
-				EnableMenuItem(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_DISABLED);
+				EnableMenuItem(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE,
+											 MF_DISABLED);
 		}
 }
-#endif
+
 using std::cout;
 using std::endl;
-
+#endif
 
 bool Hook::Init()
 {
@@ -45,21 +38,21 @@ bool Hook::Init()
 #ifdef CONSOLE
 				console(Data::g_hModule);
 #endif
-				Data::window = FindWindowA(nullptr, "Elaris v1.0");
-				oWndProc = reinterpret_cast<WndProc_t>(SetWindowLongPtr(Data::window, GWL_WNDPROC, reinterpret_cast<LONG_PTR>(Hook::WndProc)));
-				//pSendPacket = Scanner::FindFunction<ToHookSendPacket_t>(Elaris::SendPacket);
-				//oSendPacket = pSendPacket;
+				Data::window = FindWindowA(nullptr, Data::chModule);
+				oWndProc = reinterpret_cast<WndProc_t>(SetWindowLongPtr(
+						Data::window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(Hook::WndProc)));
+
 				// direct x and direct input vTable initialization
-				pEndScene = static_cast<EndScene_t>(deviceTable[42]);
-				pReset = static_cast<Reset_t>(deviceTable[16]);
-				pGetDeviceData = static_cast<GetDeviceData_t>(inputDeviceTable[10]);
-				pGetDeviceState = static_cast<GetDeviceState_t>(inputDeviceTable[9]);
+				pEndScene = reinterpret_cast<EndScene_t>(deviceTable[42]);
+				pReset = reinterpret_cast<Reset_t>(deviceTable[16]);
+				pGetDeviceData = reinterpret_cast<GetDeviceData_t>(inputDeviceTable[10]);
+				pGetDeviceState = reinterpret_cast<GetDeviceState_t>(inputDeviceTable[9]);
 
 				// hook functions
 				DetourTransactionBegin();
 				DetourUpdateThread(GetCurrentThread());
+
 				DetourAttach(&reinterpret_cast<PVOID&>(pEndScene), EndScene);
-				//DetourAttach(&(PVOID&)pSendUseItemPacket, hkSendUseItemPacket);
 				DetourAttach(&reinterpret_cast<PVOID&>(pReset), Reset);
 				DetourAttach(&reinterpret_cast<PVOID&>(pGetDeviceData), GetDeviceData);
 				DetourAttach(&reinterpret_cast<PVOID&>(pGetDeviceState), GetDeviceState);
@@ -72,9 +65,6 @@ bool Hook::Init()
 
 bool Hook::Shutdown()
 {
-#ifdef CONSOLE
-		FreeConsole();
-#endif
 		if (Gui::IsImGuiInit())
 		{
 				ImGui_ImplDX9_Shutdown();
@@ -84,41 +74,36 @@ bool Hook::Shutdown()
 		DetourTransactionBegin();
 		DetourUpdateThread(GetCurrentThread());
 
-		// replacing functions with our functions
 		DetourDetach(&reinterpret_cast<PVOID&>(pEndScene), EndScene);
-		//DetourDettach(&(PVOID&)pSendUseItemPacket, hkSendUseItemPacket);
 		DetourDetach(&reinterpret_cast<PVOID&>(pReset), Reset);
 		DetourDetach(&reinterpret_cast<PVOID&>(pGetDeviceData), GetDeviceData);
 		DetourDetach(&reinterpret_cast<PVOID&>(pGetDeviceState), GetDeviceState);
 		DetourTransactionCommit();
 
 		SetWindowLongPtr(Data::window, GWLP_WNDPROC, (LONG_PTR) oWndProc);
+
+#ifdef CONSOLE
+		// Closign the console window
+		if (fConsole)
+				fclose(fConsole);
+
+		FreeConsole();
+#endif // CONSOLE
+
 		return true;
 }
 
-char __fastcall Hook::hkSendPacket(const int pThis, const int ebx, unsigned int const a2, long** a3)
-{
-		for (long i = 0; i < sizeof(a3); i++)
-		{
-				if (i == sizeof(a3) - 1)
-						cout << std::hex << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << endl;
-				else if (i == 0)
-						cout << "Packet header : " << std::hex << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << " ";
-				else
-						cout << std::hex << static_cast<int>(reinterpret_cast<BYTE*>(a3)[i]) << " ";
-		}
-		return pSendPacket(pThis, ebx, a2, a3);
-}
-
 /// <summary>
-/// Get the pointer to the D3D9 input device to get the input method and block clicks if menu is enabled
+/// Get the pointer to the D3D9 input device to get the input method and block
+/// clicks if menu is enabled
 /// </summary>
 /// <returns>True or false if the process works correctly</returns>
 bool Hook::GetD3D9InputDevice()
 {
 		IDirectInput8* pDirectInput = nullptr;
-		if (DirectInput8Create(Data::g_hModule, DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<LPVOID*>(&pDirectInput), nullptr) !=
-				DI_OK)
+		if (DirectInput8Create(
+				Data::g_hModule, DIRECTINPUT_VERSION, IID_IDirectInput8,
+				reinterpret_cast<LPVOID*>(&pDirectInput), nullptr) != DI_OK)
 		{
 				return false;
 		}
@@ -134,9 +119,7 @@ bool Hook::GetD3D9InputDevice()
 		return true;
 }
 
-/// <summary>
 /// Get the pointer to the D3D9 device to hook the endscene and reset functions
-/// </summary>
 /// <returns>True or false if the process works correctly</returns>
 bool Hook::GetD3D9Device()
 {
@@ -146,7 +129,9 @@ bool Hook::GetD3D9Device()
 				return false;
 		}
 
-		const HWND tmpWnd = CreateWindowA("BUTTON", "Temp Window", WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, 300, 300, nullptr, nullptr, Data::g_hModule, nullptr);
+		const HWND tmpWnd = CreateWindowA(
+				"BUTTON", "Temp Window", WS_SYSMENU | WS_MINIMIZEBOX, CW_USEDEFAULT,
+				CW_USEDEFAULT, 300, 300, nullptr, nullptr, Data::g_hModule, nullptr);
 		if (tmpWnd == nullptr)
 		{
 				return false;
@@ -157,8 +142,10 @@ bool Hook::GetD3D9Device()
 		d3dpp.hDeviceWindow = tmpWnd;
 		d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 		IDirect3DDevice9* pDevice = nullptr;
-		if (const HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, tmpWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-																									&d3dpp, &pDevice); FAILED(result) || !pDevice)
+		if (const HRESULT result = pD3D->CreateDevice(
+				D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, tmpWnd,
+				D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &pDevice);
+				FAILED(result) || !pDevice)
 		{
 				pD3D->Release();
 				DestroyWindow(tmpWnd);
@@ -174,7 +161,8 @@ bool Hook::GetD3D9Device()
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
 																							WPARAM wParam, LPARAM lParam);
 
-LRESULT WINAPI Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT WINAPI Hook::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam,
+														 LPARAM lParam)
 {
 		if (Gui::IsShowMenu())
 		{
@@ -227,16 +215,20 @@ HRESULT __stdcall Hook::GetDeviceState(IDirectInputDevice8* pThis, DWORD cbData,
 		return result;
 }
 
-HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis, DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod,
-																			const LPDWORD pdwInOut, const DWORD dwFlags)
+HRESULT __stdcall Hook::GetDeviceData(IDirectInputDevice8* pThis,
+																			DWORD cbObjectData,
+																			LPDIDEVICEOBJECTDATA rgdod,
+																			const LPDWORD pdwInOut,
+																			const DWORD dwFlags)
 {
-		const HRESULT result = pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
+		const HRESULT result =
+				pGetDeviceData(pThis, cbObjectData, rgdod, pdwInOut, dwFlags);
 		if (result == DI_OK)
 		{
 				// we block input if menu is visible
 				if (Gui::IsShowMenu())
 				{
-						*pdwInOut = 0; //set array size 0
+						*pdwInOut = 0; // set array size 0
 				}
 		}
 		return result;
@@ -246,11 +238,12 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice)
 {
 		if (Gui::IsDetach())
 		{
-				CreateThread(nullptr, 0, DllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
+				CreateThread(nullptr, 0, DllFunctions::ExitThread, Data::g_hModule, 0,
+										 nullptr);
 		}
 
 		// if the device == null then we just return to the original function so we
-		// don't initialise ImGui with a null device
+		// don't initialise ImGui with a null device and cause a crash
 		if (pDevice == nullptr)
 				return pEndScene(pDevice);
 
@@ -258,20 +251,23 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice)
 		{
 				Gui::FlipImGui();
 				ImGui::CreateContext();
-				//ImGuiIO& io = ImGui::GetIO();
-				ImGui_ImplWin32_Init(FindWindowA(nullptr, "Elaris v1.0"));
+				ImGui::GetIO();
+				// ImGui_ImplWin32_Init(FindWindowA(nullptr, "Elaris v1.0"));
+				ImGui_ImplWin32_Init(FindWindowA(nullptr, Data::chModule));
 				ImGui_ImplDX9_Init(pDevice);
 		}
 
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-		// here goes the menu
 
+		// show menu
 		if (Gui::IsShowMenu())
 		{
 				Gui::RenderMenu();
 		}
+
+		// a special window for my character coords
 		if (Gui::IsShowCoords())
 		{
 				Gui::RenderCoordWindow();
@@ -284,10 +280,14 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice)
 		return pEndScene(pDevice);
 }
 
-HRESULT __stdcall Hook::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* params)
+// This function might be crucial to imgui reinitialization if it gets
+// destroyed along the way by the program or something happens
+HRESULT __stdcall Hook::Reset(IDirect3DDevice9* pDevice,
+															D3DPRESENT_PARAMETERS* params)
 {
 		ImGui_ImplDX9_InvalidateDeviceObjects();
-		if (const auto result = pDevice->Reset(params); result == D3DERR_INVALIDCALL)
+		if (const auto result = pDevice->Reset(params);
+				result == D3DERR_INVALIDCALL)
 		{
 				IM_ASSERT(0);
 		}

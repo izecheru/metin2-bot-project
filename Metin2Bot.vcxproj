@@ -1,234 +1,504 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{CAB203DC-9D34-325D-B444-97DA3AB2A957}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{61aae6f4-0763-4ff7-b81d-7eb95ef6838f}</ProjectGuid>
-    <RootNamespace>Metin2Bot</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Metin2Bot</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\GitHub\metin2-bot-project\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Metin2Bot.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Metin2Bot</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\GitHub\metin2-bot-project\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Metin2Bot.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Metin2Bot</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\GitHub\metin2-bot-project\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Metin2Bot.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Metin2Bot</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\GitHub\metin2-bot-project\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Metin2Bot.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Metin2Bot</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\build\intermediates\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>%(AdditionalOptions) -m32</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CMAKE_INTDIR="Debug";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;CMAKE_INTDIR=\"Debug\";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>ext\detours\lib\detours.lib;ext\directx\lib\x86\d3dx9.lib;ext\directx\lib\x86\d3d9.lib;ext\directx\lib\x86\dinput8.lib;ext\directx\lib\x86\dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/GitHub/metin2-bot-project/Debug/Metin2Bot.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/GitHub/metin2-bot-project/Debug/Metin2Bot.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>%(AdditionalOptions) -m32</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;CMAKE_INTDIR="Release";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;CMAKE_INTDIR=\"Release\";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ext\detours\lib\detours.lib;ext\directx\lib\x86\d3dx9.lib;ext\directx\lib\x86\d3d9.lib;ext\directx\lib\x86\dinput8.lib;ext\directx\lib\x86\dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/GitHub/metin2-bot-project/Release/Metin2Bot.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/GitHub/metin2-bot-project/Release/Metin2Bot.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalOptions>%(AdditionalOptions) -m32</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;CMAKE_INTDIR="MinSizeRel";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ext\detours\lib\detours.lib;ext\directx\lib\x86\d3dx9.lib;ext\directx\lib\x86\d3d9.lib;ext\directx\lib\x86\dinput8.lib;ext\directx\lib\x86\dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/GitHub/metin2-bot-project/MinSizeRel/Metin2Bot.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/GitHub/metin2-bot-project/MinSizeRel/Metin2Bot.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalOptions>%(AdditionalOptions) -m32</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;CMAKE_INTDIR="RelWithDebInfo";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";Metin2Bot_EXPORTS</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ext\detours\lib\detours.lib;ext\directx\lib\x86\d3dx9.lib;ext\directx\lib\x86\d3d9.lib;ext\directx\lib\x86\dinput8.lib;ext\directx\lib\x86\dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/GitHub/metin2-bot-project/RelWithDebInfo/Metin2Bot.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/GitHub/metin2-bot-project/RelWithDebInfo/Metin2Bot.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ext\detours\detours.h" />
-    <ClInclude Include="ext\detours\detver.h" />
-    <ClInclude Include="ext\detours\syelog.h" />
-    <ClInclude Include="ext\directx\Include\audiodefs.h" />
-    <ClInclude Include="ext\directx\Include\comdecl.h" />
-    <ClInclude Include="ext\directx\Include\D2D1.h" />
-    <ClInclude Include="ext\directx\Include\D2D1Helper.h" />
-    <ClInclude Include="ext\directx\Include\D2DBaseTypes.h" />
-    <ClInclude Include="ext\directx\Include\D2Derr.h" />
-    <ClInclude Include="ext\directx\Include\D3D10.h" />
-    <ClInclude Include="ext\directx\Include\D3D10effect.h" />
-    <ClInclude Include="ext\directx\Include\d3d10misc.h" />
-    <ClInclude Include="ext\directx\Include\d3d10sdklayers.h" />
-    <ClInclude Include="ext\directx\Include\D3D10shader.h" />
-    <ClInclude Include="ext\directx\Include\D3D10_1.h" />
-    <ClInclude Include="ext\directx\Include\D3D10_1shader.h" />
-    <ClInclude Include="ext\directx\Include\D3D11.h" />
-    <ClInclude Include="ext\directx\Include\D3D11SDKLayers.h" />
-    <ClInclude Include="ext\directx\Include\D3D11Shader.h" />
-    <ClInclude Include="ext\directx\Include\d3d9.h" />
-    <ClInclude Include="ext\directx\Include\d3d9caps.h" />
-    <ClInclude Include="ext\directx\Include\d3d9types.h" />
-    <ClInclude Include="ext\directx\Include\D3Dcommon.h" />
-    <ClInclude Include="ext\directx\Include\D3Dcompiler.h" />
-    <ClInclude Include="ext\directx\Include\D3DCSX.h" />
-    <ClInclude Include="ext\directx\Include\D3DX10.h" />
-    <ClInclude Include="ext\directx\Include\d3dx10async.h" />
-    <ClInclude Include="ext\directx\Include\D3DX10core.h" />
-    <ClInclude Include="ext\directx\Include\D3DX10math.h" />
-    <ClInclude Include="ext\directx\Include\D3DX10mesh.h" />
-    <ClInclude Include="ext\directx\Include\D3DX10tex.h" />
-    <ClInclude Include="ext\directx\Include\D3DX11.h" />
-    <ClInclude Include="ext\directx\Include\D3DX11async.h" />
-    <ClInclude Include="ext\directx\Include\D3DX11core.h" />
-    <ClInclude Include="ext\directx\Include\D3DX11tex.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9anim.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9core.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9effect.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9math.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9mesh.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9shader.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9shape.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9tex.h" />
-    <ClInclude Include="ext\directx\Include\d3dx9xof.h" />
-    <ClInclude Include="ext\directx\Include\Dcommon.h" />
-    <ClInclude Include="ext\directx\Include\dinput.h" />
-    <ClInclude Include="ext\directx\Include\dinputd.h" />
-    <ClInclude Include="ext\directx\Include\dsconf.h" />
-    <ClInclude Include="ext\directx\Include\dsetup.h" />
-    <ClInclude Include="ext\directx\Include\dsound.h" />
-    <ClInclude Include="ext\directx\Include\DWrite.h" />
-    <ClInclude Include="ext\directx\Include\dxdiag.h" />
-    <ClInclude Include="ext\directx\Include\DxErr.h" />
-    <ClInclude Include="ext\directx\Include\dxfile.h" />
-    <ClInclude Include="ext\directx\Include\DXGI.h" />
-    <ClInclude Include="ext\directx\Include\DXGIFormat.h" />
-    <ClInclude Include="ext\directx\Include\DXGIType.h" />
-    <ClInclude Include="ext\directx\Include\dxsdkver.h" />
-    <ClInclude Include="ext\directx\Include\gameux.h" />
-    <ClInclude Include="ext\directx\Include\PIXPlugin.h" />
-    <ClInclude Include="ext\directx\Include\rmxfguid.h" />
-    <ClInclude Include="ext\directx\Include\rmxftmpl.h" />
-    <ClInclude Include="ext\directx\Include\rpcsal.h" />
-    <ClInclude Include="ext\directx\Include\X3DAudio.h" />
-    <ClInclude Include="ext\directx\Include\xact3.h" />
-    <ClInclude Include="ext\directx\Include\xact3d3.h" />
-    <ClInclude Include="ext\directx\Include\xact3wb.h" />
-    <ClInclude Include="ext\directx\Include\XAPO.h" />
-    <ClInclude Include="ext\directx\Include\XAPOBase.h" />
-    <ClInclude Include="ext\directx\Include\XAPOFX.h" />
-    <ClInclude Include="ext\directx\Include\XAudio2.h" />
-    <ClInclude Include="ext\directx\Include\XAudio2fx.h" />
-    <ClInclude Include="ext\directx\Include\XDSP.h" />
-    <ClInclude Include="ext\directx\Include\XInput.h" />
-    <ClInclude Include="ext\directx\Include\xma2defs.h" />
-    <ClInclude Include="ext\directx\Include\xnamath.h" />
-    <ClInclude Include="ext\imgui\imconfig.h" />
-    <ClInclude Include="ext\imgui\imgui.h" />
-    <ClInclude Include="ext\imgui\imgui_impl_dx9.h" />
-    <ClInclude Include="ext\imgui\imgui_impl_win32.h" />
-    <ClInclude Include="ext\imgui\imgui_internal.h" />
-    <ClInclude Include="ext\imgui\imstb_rectpack.h" />
-    <ClInclude Include="ext\imgui\imstb_textedit.h" />
-    <ClInclude Include="ext\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\classPointers.h" />
-    <ClInclude Include="src\data.h" />
-    <ClInclude Include="src\dllFunctions.h" />
-    <ClInclude Include="src\entity.h" />
-    <ClInclude Include="src\gameFunctions.h" />
-    <ClInclude Include="src\init.h" />
-    <ClInclude Include="src\pointers.h" />
-    <ClInclude Include="src\signature.h" />
-    <ClInclude Include="src\gui.h" />
-    <ClInclude Include="src\hook.h" />
-    <ClInclude Include="src\scanner.h" />
-    <ClInclude Include="src\singleton.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\main.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\singleton.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\signature.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\scanner.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\scanner.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\gamePointers.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\gamePointers.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\init.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\entity.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\gameFunctions.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\gameFunctions.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\gui.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\gui.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\hook.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\hook.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\init.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\data.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\src\dllFunctions.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\src\dllFunctions.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imconfig.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_demo.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_draw.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_impl_dx9.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_impl_dx9.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_impl_win32.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_internal.h" />
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_tables.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClCompile Include="D:\GitHub\metin2-bot-project\ext\imgui\imgui_widgets.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imstb_rectpack.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imstb_textedit.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\audiodefs.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\comdecl.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D2D1.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D2D1Helper.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D2DBaseTypes.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D2Derr.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3d9.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3d9caps.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3d9types.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D10.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D10_1.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D10_1shader.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D10effect.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3d10misc.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3d10sdklayers.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D10shader.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D11.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D11SDKLayers.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3D11Shader.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3Dcommon.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3Dcompiler.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DCSX.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9anim.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9core.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9effect.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9math.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9math.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9mesh.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9shader.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9shape.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9tex.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx9xof.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\d3dx10async.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10core.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10math.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10math.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10mesh.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX10tex.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX11.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX11async.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX11core.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX11tex.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\D3DX_DXGIFormatConvert.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\Dcommon.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dinput.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dinputd.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dsconf.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dsetup.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dsound.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\DWrite.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dxdiag.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\DxErr.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dxfile.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\DXGI.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\DXGIFormat.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\DXGIType.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\dxsdkver.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\gameux.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\PIXPlugin.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\rmxfguid.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\rmxftmpl.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\rpcsal.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\X3DAudio.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xact3.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xact3d3.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xact3wb.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XAPO.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XAPOBase.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XAPOFX.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XAudio2.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XAudio2fx.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XDSP.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\XInput.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xma2defs.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xnamath.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xnamathconvert.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xnamathmatrix.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xnamathmisc.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\directx\Include\xnamathvector.inl" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\detours\detours.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\detours\detver.h" />
+    <ClInclude Include="D:\GitHub\metin2-bot-project\ext\detours\syelog.h" />
+    <ClInclude Include="src\utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\GitHub\metin2-bot-project\ZERO_CHECK.vcxproj">
+      <Project>{88CBB15C-7AFF-3338-BFFD-F0A325FD4299}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ext\detours\lib\detours.lib" />
@@ -263,31 +533,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ext\detours\lib\detours.pdb" />
-    <None Include="ext\directx\Include\D3DX10math.inl" />
-    <None Include="ext\directx\Include\d3dx9math.inl" />
-    <None Include="ext\directx\Include\D3DX_DXGIFormatConvert.inl" />
-    <None Include="ext\directx\Include\xnamathconvert.inl" />
-    <None Include="ext\directx\Include\xnamathmatrix.inl" />
-    <None Include="ext\directx\Include\xnamathmisc.inl" />
-    <None Include="ext\directx\Include\xnamathvector.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ext\imgui\imgui.cpp" />
-    <ClCompile Include="ext\imgui\imgui_demo.cpp" />
-    <ClCompile Include="ext\imgui\imgui_draw.cpp" />
-    <ClCompile Include="ext\imgui\imgui_impl_dx9.cpp" />
-    <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="ext\imgui\imgui_tables.cpp" />
-    <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\classPointers.cpp" />
-    <ClCompile Include="src\dllFunctions.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\gameFunctions.cpp" />
-    <ClCompile Include="src\gui.cpp" />
-    <ClCompile Include="src\hook.cpp" />
-    <ClCompile Include="src\init.cpp" />
-    <ClCompile Include="src\pointers.cpp" />
-    <ClCompile Include="src\scanner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

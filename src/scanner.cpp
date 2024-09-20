@@ -1,46 +1,47 @@
 #include "scanner.h"
+#include <iostream>
 
-MODULEINFO Scanner::GetModuleInfo(const char* szModule)
-{
-		MODULEINFO modinfo = { nullptr };
-		const HMODULE hModule = GetModuleHandleA(szModule);
-		if (hModule == nullptr)
-				return modinfo;
-		GetModuleInformation(GetCurrentProcess(), hModule, &modinfo, sizeof(MODULEINFO));
-		return modinfo;
-}
+std::uint8_t *Scanner::PatternScan(void *module, const char *signature) {
+  static auto pattern_to_byte = [](const char *pattern) {
+    auto bytes = std::vector<int>{};
+    auto start = const_cast<char *>(pattern);
+    auto end = const_cast<char *>(pattern) + strlen(pattern);
 
-uintptr_t Scanner::FindPattern(const char* chPattern, const char* chMask)
-{
-		dwBase = reinterpret_cast<DWORD>(GetModuleHandleA(0));
-		chModule = (char*) "Elaris v1.0";
-		const MODULEINFO mInfo = GetModuleInfo(Scanner::chModule);
-		const DWORD size = (DWORD) mInfo.SizeOfImage;
-		const DWORD patternLength = (DWORD) strlen(chMask);
+    for (auto current = start; current < end; ++current) {
+      if (*current == '?') {
+        ++current;
+        if (*current == '?')
+          ++current;
+        bytes.push_back(-1);
+      } else {
+        bytes.push_back(strtoul(current, &current, 16));
+      }
+    }
+    return bytes;
+  };
 
-		for (DWORD i = 0; i < size - patternLength; i++)
-		{
-				bool found = true;
-				for (DWORD j = 0; j < patternLength; j++)
-				{
-						found &= chMask[j] == '?' || chPattern[j] == *reinterpret_cast<char*>(dwBase + i + j);
-				}
-				if (found)
-				{
-						return dwBase + i;
-				}
-		}
-		return NULL;
-}
+  auto dosHeader = (PIMAGE_DOS_HEADER)module;
+  auto ntHeaders =
+      (PIMAGE_NT_HEADERS)((std::uint8_t *)module + dosHeader->e_lfanew);
 
-uintptr_t Scanner::FindClass(const OffsetSig& signature)
-{
-		const uintptr_t addressFound = FindPattern(signature.pattern, signature.mask);
-		const uintptr_t result = (addressFound + signature.offset);
-		return *reinterpret_cast<uintptr_t*>(result);
-}
+  auto sizeOfImage = ntHeaders->OptionalHeader.SizeOfImage;
+  auto patternBytes = pattern_to_byte(signature);
+  auto scanBytes = reinterpret_cast<std::uint8_t *>(module);
 
-uintptr_t Scanner::FindSignature(const Sig sig)
-{
-		return FindPattern(sig.pattern, sig.mask);
+  auto s = patternBytes.size();
+  auto d = patternBytes.data();
+
+  for (auto i = 0ul; i < sizeOfImage - s; ++i) {
+    bool found = true;
+    for (auto j = 0ul; j < s; ++j) {
+      if (scanBytes[i + j] != d[j] && d[j] != -1) {
+        found = false;
+        break;
+      }
+    }
+    if (found) {
+      return &scanBytes[i];
+    }
+  }
+  return nullptr;
 }

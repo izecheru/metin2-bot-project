@@ -39,8 +39,7 @@ bool Hook::Init()
 				console(Data::g_hModule);
 #endif
 				Data::window = FindWindowA(nullptr, Data::chModule);
-				oWndProc = reinterpret_cast<WndProc_t>(SetWindowLongPtr(
-						Data::window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(Hook::WndProc)));
+				oWndProc = reinterpret_cast<WndProc_t>(SetWindowLongPtr(Data::window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(Hook::WndProc)));
 
 				// direct x and direct input vTable initialization
 				pEndScene = reinterpret_cast<EndScene_t>(deviceTable[42]);
@@ -238,8 +237,7 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice)
 {
 		if (Gui::IsDetach())
 		{
-				CreateThread(nullptr, 0, DllFunctions::ExitThread, Data::g_hModule, 0,
-										 nullptr);
+				CreateThread(nullptr, 0, DllFunctions::ExitThread, Data::g_hModule, 0, nullptr);
 		}
 
 		// if the device == null then we just return to the original function so we

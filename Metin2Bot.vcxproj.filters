@@ -400,5 +400,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ext\detours\lib\detours.pdb" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
 </Project>

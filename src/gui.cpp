@@ -25,10 +25,18 @@ void Gui::Init()
 /// </summary>
 void Gui::RenderCoordWindow()
 {
-		ImGui::Begin("window 1", nullptr,
-								 ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |
-								 ImGuiWindowFlags_NoResize);
-		ImGui::SetWindowPos(ImVec2(100, 10));
+		ImGui::Begin("window 1", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+		// to make sure we open the window in the application view
+		RECT rect = { NULL };
+		int x; int y;
+		if (GetWindowRect(GetConsoleWindow(), &rect))
+		{
+				x = rect.left;
+				y = rect.top;
+		}
+
+		ImGui::SetWindowPos(ImVec2(100, 100));
 		ImGui::SetWindowSize(ImVec2(250, 49));
 
 		if (ImGui::GetIO().WantCaptureMouse == true)
@@ -47,20 +55,48 @@ void Gui::RenderCoordWindow()
 void Gui::RenderMenu()
 {
 		ImGui::Begin("Metin bot", nullptr, ImGuiWindowFlags_NoDecoration);
+		// to make sure we open the window in the application view
+		RECT rect = { NULL };
+		int x; int y;
+		if (GetWindowRect(GetConsoleWindow(), &rect))
+		{
+				x = rect.left / 2;
+				y = rect.top / 2;
+		}
+
+		ImGui::SetWindowPos(ImVec2(100, 100));
 		ImGui::SetWindowSize(ImVec2(500, 500));
 		if (ImGui::BeginTabBar("Tabs"))
 		{
 				if (ImGui::BeginTabItem("Pointers addresses"))
 				{
-						ImGui::Text("CPythonNetworkStream  = %04x",
-												GamePointers::CPythonNetworkStream);
-						ImGui::Text("CPythonCharacterManager = %04x",
-												GamePointers::CPythonCharacterManager);
+						ImGui::Text("CPythonNetworkStream  = %04x", GamePointers::CPythonNetworkStream);
+						ImGui::Text("CPythonCharacterManager = %04x", GamePointers::CPythonCharacterManager);
+						ImGui::Text("kalive size = %d", GamePointers::kAliveInstance.size());
+						ImGui::Separator();
+						if (!GamePointers::kAliveInstance.empty())
+								for (auto i = GamePointers::kAliveInstance.begin(); i != GamePointers::kAliveInstance.end(); i++)
+								{
+										if (!i->first)
+												continue;
 
-						ImGui::Text("num of entitites -> %d",
-												GamePointers::kaliveInstanceMap.size());
+										ImGui::Text("name -> %s", i->second->entityName);
+								}
 
-						ImGui::EndTabItem();
+						ImGui::Separator();
+						/*ImGui::Text("mob entitites -> %d", GamePointers::mobArray.size());
+						for (int i = 0; i < GamePointers::mobArray.size(); i++)
+						{
+								if (!GamePointers::mobArray.at(i))
+										continue;
+
+								if (sizeof(GamePointers::mobArray.at(i)) != sizeof(Entity::Mob))
+										continue;
+
+								ImGui::Text("name -> %s", GamePointers::mobArray.at(i)->entityName);
+						}
+
+						ImGui::EndTabItem();*/
 				}
 				ImGui::EndTabBar();
 		}

@@ -1,18 +1,29 @@
 #pragma once
+#include <mutex>
 template <typename T>
-class Singleton {
+class Singleton
+{
 public:
-		// Function to access the singleton instance
-		static T& getInstance() {
-				static T instance; // Guaranteed to be destroyed and instantiated only once.
-				return instance;
-		}
+  static T* getInstance()
+  {
+    {
+      std::lock_guard lock(m_mutex);
+      if (m_pInstance == nullptr)
+      {
+        m_pInstance = new T();
+      }
+    }
+    return m_pInstance;
+  }
 
-		// Delete the copy constructor and assignment operator to prevent duplication
-		Singleton(const Singleton&) = delete;
-		Singleton& operator=(const Singleton&) = delete;
+  Singleton(Singleton& other) = delete;
+  Singleton& operator=(Singleton&) = delete;
+
+private:
+  static inline std::mutex m_mutex;
+  static inline T* m_pInstance;
 
 protected:
-		// Allow derived classes to access the constructor
-		Singleton() = default;
+  Singleton() = default;
+  ~Singleton() = default;
 };

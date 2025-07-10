@@ -1,54 +1,42 @@
 #pragma once
+#include "singleton.h"
 
-class Gui {
-  inline static bool showMenu;
-  inline static bool showValue;
-  inline static bool InitImGui;
-  inline static bool toDetach;
-  inline static bool blockMouse;
-  inline static bool blockKeyboard;
-  inline static bool canResize;
-  inline static bool showInstanceDetails;
-  inline static bool entitiesInit;
-  inline static bool showCInstanceBase;
-  inline static bool canUseSkill;
-  inline static bool guiInit;
-  inline static bool applyMetinSlider;
+class UserInterface :public Singleton<UserInterface>
+{
+private:
+
+  bool showMenu;
+  bool showValue;
+  bool InitImGui;
+  bool toDetach;
+  bool blockMouse;
+  bool blockKeyboard;
+  bool canResize;
+  bool showInstanceDetails;
+  bool entitiesInit;
+  bool showCInstanceBase;
+  bool canUseSkill;
+  bool guiInit;
+  bool applyMetinSlider;
 
 public:
-  static void Init();
 
-  static void FlipMenu();
-
-  static void FlipDetach();
-
-  static void FlipBlockMouse();
-
-  static void FlipBlockKeyboard();
-
-  static void FlipCanResize();
-
-  static void FlipImGui();
-
-  static void FlipShowCoords();
-
-  static bool IsShowCoords();
-
-  static bool IsShowMenu();
-
-  static bool IsDetach();
-
-  static bool IsImGuiInit();
-
-  static bool IsMouseBlocked();
-
-  static bool IsKeyboardBlocked();
-
-  static bool CanResize();
-
-  static void RenderVariable(int value, const char *variableName);
-
-  static void RenderMenu();
-
-  static void RenderCoordWindow();
+  void init();
+  void flipMenu();
+  void flipDetach();
+  void setMouseBlock();
+  void setKeyboardBlock();
+  void setCanResize();
+  void setImGuiInit();
+  void setShowCoordinatesWin();
+  bool isCoordinatesWinVisible()const;
+  bool isMenuVisible()const;
+  bool isDetached();
+  bool isImGuiInit();
+  bool isMouseBlocked();
+  bool isKeyboardBlocked();
+  bool isResizable();
+  void renderVar(int& value, const char* variableName);
+  void renderMenu();
+  void renderCoordinatesWin();
 };

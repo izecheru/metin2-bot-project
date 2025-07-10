@@ -3,7 +3,8 @@
 #include "gamePointers.h"
 #include "hook.h"
 
-void Init::InitHack() {
+void Init::InitHack()
+{
   InitFuncs();
   InitPointers();
   InitHooks();
@@ -16,4 +17,4 @@ void Init::InitHooks() { Hook::Init(); }
 
 void Init::InitPointers() { GamePointers::Init(); }
 
-void Init::InitGui() { Gui::Init(); }
+void Init::InitGui() { UserInterface::getInstance()->init(); }

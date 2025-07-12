@@ -74,6 +74,7 @@ void UserInterface::renderMenu()
       ImGui::Text("CPythonNetworkStream  = %04x", GamePointers::CPythonNetworkStream);
       ImGui::Text("CPythonCharacterManager = %04x", GamePointers::CPythonCharacterManager);
       ImGui::Separator();
+      ImGui::EndTabItem();
     }
     ImGui::EndTabBar();
   }

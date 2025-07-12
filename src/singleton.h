@@ -7,7 +7,6 @@ public:
   static T* getInstance()
   {
     {
-      std::lock_guard lock(m_mutex);
       if (m_pInstance == nullptr)
       {
         m_pInstance = new T();

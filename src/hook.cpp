@@ -1,7 +1,7 @@
 #include "hook.h"
 #include "scanner.h"
 
-#define CONSOLE1
+#define CONSOLE
 #ifdef CONSOLE
 
 /// <summary>
@@ -249,11 +249,24 @@ HRESULT __stdcall Hook::EndScene(IDirect3DDevice9* pDevice)
   if (!UserInterface::getInstance()->isImGuiInit())
   {
     UserInterface::getInstance()->setImGuiInit();
-    ImGui::CreateContext();
-    ImGui::GetIO();
 
-    ImGui_ImplWin32_Init(FindWindowA(nullptr, Data::chModule));
-    ImGui_ImplDX9_Init(pDevice);
+    if (ImGui::GetCurrentContext() == nullptr)
+    {
+      ImGui::CreateContext();
+    }
+
+    ImGuiIO& io = ImGui::GetIO();
+
+    // Prevent crash from reinitialization
+    if (io.BackendPlatformUserData == nullptr)
+    {
+      ImGui_ImplWin32_Init(FindWindowA(nullptr, Data::chModule));
+    }
+
+    if (io.BackendRendererUserData == nullptr)
+    {
+      ImGui_ImplDX9_Init(pDevice);
+    }
   }
 
   ImGui_ImplDX9_NewFrame();

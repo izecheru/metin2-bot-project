@@ -5,9 +5,11 @@
 
 void Init::InitHack()
 {
+  InitHooks();
+
   InitFuncs();
   InitPointers();
-  InitHooks();
+
   InitGui();
 }
 

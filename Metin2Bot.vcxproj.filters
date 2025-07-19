@@ -167,5 +167,9 @@
     <None Include="ext\directx\Include\xnamathmatrix.inl" />
     <None Include="ext\directx\Include\xnamathmisc.inl" />
     <None Include="ext\directx\Include\xnamathvector.inl" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
 </Project>

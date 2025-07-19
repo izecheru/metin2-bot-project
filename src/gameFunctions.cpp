@@ -6,10 +6,9 @@
 
 void GameFunction::Init()
 {
-  void* base = GetModuleHandle(nullptr);
-  pSendDropItemPacket = reinterpret_cast<SendDropItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendDropItemPacket.signature));
-  pSendUseItemPacket = reinterpret_cast<SendUseItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendUseItemPacket.signature));
-  pSendMoveItemPacket = reinterpret_cast<SendMoveItemPacket_t>(Scanner::PatternScan(base, Signature::Calliope::SendMoveItemPacket.signature));
+  pSendDropItemPacket = reinterpret_cast<SendDropItemPacket_t>(PatternScanner::getInstance()->scan(std::string(Signature::Calliope::SendDropItemPacket.signature)));
+  pSendUseItemPacket = reinterpret_cast<SendUseItemPacket_t>(PatternScanner::getInstance()->scan(std::string(Signature::Calliope::SendUseItemPacket.signature)));
+  pSendMoveItemPacket = reinterpret_cast<SendMoveItemPacket_t>(PatternScanner::getInstance()->scan(std::string(Signature::Calliope::SendMoveItemPacket.signature)));
 }
 
 void GameFunction::SendItemUsePacket(int itemPos)
